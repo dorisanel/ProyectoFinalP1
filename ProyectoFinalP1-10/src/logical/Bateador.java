@@ -1,7 +1,7 @@
 package logical;
 
 public class Bateador extends Jugador {
-
+	private int cantTurnos=0;
 	private int cantCarreras = 0;
 	private int cantHits = 0;
 	private int cantDobles = 0;
@@ -17,7 +17,7 @@ public class Bateador extends Jugador {
 	
 	public Bateador(String cedula, String nombre, int edad, int numero, boolean estado, int cantCarreras, int cantHits,
 			int cantDobles, int cantTriples, int cantJonrones, int basesRobadas, int cantPonches,
-			int cantCarrerasImpulsadas, int cantBoletos, int cantBasesRobadas, int cantAtrapadosRobando) {
+			int cantCarrerasImpulsadas, int cantBoletos, int cantBasesRobadas, int cantAtrapadosRobando, int cantTurnos) {
 		super(cedula, nombre, edad, numero, estado);
 		this.cantCarreras = cantCarreras;
 		this.cantHits = cantHits;
@@ -26,11 +26,26 @@ public class Bateador extends Jugador {
 		this.cantJonrones = cantJonrones;
 		this.basesRobadas = basesRobadas;
 		this.cantPonches = cantPonches;
+		this.cantTurnos=cantTurnos;
 		this.cantCarrerasImpulsadas = cantCarrerasImpulsadas;
 		this.cantBoletos = cantBoletos;
 		this.cantBasesRobadas = cantBasesRobadas;
 		this.cantAtrapadosRobando = cantAtrapadosRobando;
 	}
+	
+	
+
+	public int getCantTurnos() {
+		return cantTurnos;
+	}
+
+
+
+	public void setCantTurnos(int cantTurnos) {
+		this.cantTurnos = cantTurnos;
+	}
+
+
 
 	public int getCantCarreras() {
 		return cantCarreras;
@@ -122,7 +137,7 @@ public class Bateador extends Jugador {
 
 	public float PRO() {
 		// TODO Auto-generated method stub
-		return 0;
+		return cantHits/cantTurnos;
 	}
 	
 	public float OBP() {
