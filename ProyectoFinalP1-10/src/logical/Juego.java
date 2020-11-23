@@ -1,10 +1,11 @@
 package logical;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Juego {
-	private String fecha;
+	private Date fecha;
 	private ArrayList<Equipo> misEquipos;
 	private String visitante;           
 	private String local; 
@@ -13,17 +14,19 @@ public class Juego {
 	private int cantCarrerasL=0;
 	
 	
-	public Juego(String fecha, String estadio,String visitante,String local,int cantCarrerasV,int cantCarrerasL) {
+	public Juego(Date fecha, ArrayList<Equipo> misEquipos, String visitante, String local, String estadio,
+			int cantCarrerasV, int cantCarrerasL) {
 		super();
-		this.estadio=estadio;
-		this.local=local;
-		this.visitante=visitante;
-		this.cantCarrerasL=cantCarrerasV;
-		this.cantCarrerasV=cantCarrerasV;
-		this.misEquipos = new ArrayList <Equipo>();
+		this.fecha = fecha;
+		this.misEquipos = misEquipos;
+		this.visitante = visitante;
+		this.local = local;
+		this.estadio = estadio;
+		this.cantCarrerasV = cantCarrerasV;
+		this.cantCarrerasL = cantCarrerasL;
 	}
-	
-	
+
+
 	public String getEstadio() {
 		return estadio;
 	}
@@ -34,12 +37,12 @@ public class Juego {
 	}
 
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
