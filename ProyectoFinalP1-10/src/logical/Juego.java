@@ -10,12 +10,13 @@ public class Juego {
 	private String visitante;           
 	private String local; 
 	private String estadio;
+	private boolean estado;
 	private int cantCarrerasV=0;
 	private int cantCarrerasL=0;
 	
 	
 	public Juego(Date fecha, ArrayList<Equipo> misEquipos, String visitante, String local, String estadio,
-			int cantCarrerasV, int cantCarrerasL) {
+			int cantCarrerasV, int cantCarrerasL,boolean estado) {
 		super();
 		this.fecha = fecha;
 		this.misEquipos = misEquipos;
@@ -24,6 +25,7 @@ public class Juego {
 		this.estadio = estadio;
 		this.cantCarrerasV = cantCarrerasV;
 		this.cantCarrerasL = cantCarrerasL;
+		this.estado=estado;
 	}
 
 
@@ -93,6 +95,16 @@ public class Juego {
 
 	public void setMisEquipos(ArrayList<Equipo> misEquipos) {
 		this.misEquipos = misEquipos;
+	}
+
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 	
 	// en proceso
