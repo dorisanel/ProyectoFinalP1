@@ -8,8 +8,8 @@ public class Equipo {
 
 	public Equipo(String nombre, String manager) {
 		super();
-		this.nombre = nombre;
-		this.manager = manager;
+		this.setNombre(nombre);
+		this.setManager(manager);
 		this.misJugadores = new ArrayList<Jugador>();
 		this.estadisticasTemporadas = new ArrayList<Estadistica>();
 		this.cantJuegosGanados = 0;
@@ -97,6 +97,21 @@ public class Equipo {
 		}
 		return hecho;
 
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getManager() {
+		return manager;
+	}
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+	public void insertarJugador(Jugador aux) {
+		misJugadores.add(aux);
 	}
 
 

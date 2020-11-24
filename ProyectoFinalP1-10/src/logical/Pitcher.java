@@ -2,6 +2,8 @@ package logical;
 
 public class Pitcher extends Jugador {
 	
+	private int juegosGanados;
+	private int juegosPerdidos;
 	private int juegosLanzados;
 	private int aperturas;
 	private int juegosCompletos;
@@ -16,10 +18,14 @@ public class Pitcher extends Jugador {
 	private int carrerasLimpias;
 	private int cantHits;
 	private int cantJonrones;
-	private int bateadoresGolpeados;	
+	private int bateadoresGolpeados;
+	private int turnoAlBateOponente;
+	private float inningsPitched;
 
 	public Pitcher(String cedula, String nombre, int edad, int numero, boolean estado) {
 		super(cedula, nombre, edad, numero, estado);
+		this.setJuegosPerdidos(0);
+		this.juegosGanados = 0;
 		this.juegosLanzados = 0;
 		this.aperturas = 0;
 		this.juegosCompletos = 0;
@@ -35,9 +41,34 @@ public class Pitcher extends Jugador {
 		this.cantHits = 0;
 		this.cantJonrones = 0;
 		this.bateadoresGolpeados = 0;
+		this.turnoAlBateOponente = 0;
 	}
 	
 	
+
+	public int getJuegosGanados() {
+		return juegosGanados;
+	}
+
+
+
+	public void setJuegosGanados(int juegosGanados) {
+		this.juegosGanados = juegosGanados;
+	}
+
+
+
+	public int getTurnoAlBateOponente() {
+		return turnoAlBateOponente;
+	}
+
+
+
+	public void setTurnoAlBateOponente(int turnoAlBateOponente) {
+		this.turnoAlBateOponente = turnoAlBateOponente;
+	}
+
+
 
 	public int getJuegosLanzados() {
 		return juegosLanzados;
@@ -217,12 +248,41 @@ public class Pitcher extends Jugador {
 		this.bateadoresGolpeados = bateadoresGolpeados;
 	}
 
+	public int getJuegosPerdidos() {
+		return juegosPerdidos;
+	}
 
+
+
+	public void setJuegosPerdidos(int juegosPerdidos) {
+		this.juegosPerdidos = juegosPerdidos;
+	}
+
+
+
+	public float getInningsPitched() {
+		return inningsPitched;
+	}
+
+
+
+	public void setInningsPitched(float inningsPitched) {
+		this.inningsPitched = inningsPitched;
+	}
+
+
+
+	public float PCL() {
+		return (carrerasLimpias*9)/inningsPitched;
+	}
+	
+	public float WHIP() {
+		return (juegosGanados+cantHits)/inningsPitched;
+	}
 
 	@Override
 	public float PRO() {
-		// TODO Auto-generated method stub
-		return 0;
+		return cantHits/turnoAlBateOponente;
 	}
 
 }

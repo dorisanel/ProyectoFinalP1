@@ -6,7 +6,7 @@ public class SerieNacional {
 	private ArrayList<Equipo> misEquipos;
 	private ArrayList<Juego> misJuegos;
 	private ArrayList<Jugador> misJugadores;
-	
+	private static SerieNacional serieNacional = null;
 	
 	
 	public SerieNacional() {
@@ -14,6 +14,17 @@ public class SerieNacional {
 		this.misJuegos = new ArrayList <Juego>();
 		this.misJugadores = new ArrayList <Jugador>();
 		this.misEquipos = new ArrayList <Equipo>();
+	}
+	
+	public static SerieNacional getInstance() {
+		if(serieNacional == null)
+			serieNacional = new SerieNacional();
+		
+		return serieNacional; 
+	}
+	
+	public void insertarEquipo(Equipo e) {
+		misEquipos.add(e);
 	}
 	
 	public ArrayList<Juego> getMisJuegos() {
@@ -36,6 +47,34 @@ public class SerieNacional {
 
 	public void setMisEquipos(ArrayList<Equipo> misEquipos) {
 		this.misEquipos = misEquipos;
+	}
+
+	public void insertarJugador(Jugador aux, String equipo) {
+		Equipo e = buscarEquipo(equipo);
+		
+		if(e != null) {
+			misJugadores.add(aux);
+			e.insertarJugador(aux);
+		}
+				
+	}
+
+	private Equipo buscarEquipo(String nombre) {
+		
+		Equipo aux = null;
+		
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(!encontrado && i<misJugadores.size()) {
+			if(misEquipos.get(i).getNombre().equalsIgnoreCase(nombre)) {
+				aux = misEquipos.get(i);
+				encontrado = true;
+			}	
+			
+			i++;
+		}
+		return aux;
 	}
 
 }
