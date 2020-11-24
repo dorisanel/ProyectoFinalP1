@@ -4,6 +4,7 @@ public class Bateador extends Jugador {
 	private int cantTurnos=0;
 	private int cantCarreras = 0;
 	private int cantHits = 0;
+	private int cantSencillos= 0;
 	private int cantDobles = 0;
 	private int cantTriples = 0;
 	private int cantJonrones = 0;
@@ -13,14 +14,17 @@ public class Bateador extends Jugador {
 	private int cantBoletos=0;
 	private int cantBasesRobadas=0;
 	private int cantAtrapadosRobando=0;
+	private int golpeadoPorPitcher=0;
+	private int flySacrifio=0;
 	
 	
 	public Bateador(String cedula, String nombre, int edad, int numero, boolean estado, int cantCarreras, int cantHits,
-			int cantDobles, int cantTriples, int cantJonrones, int basesRobadas, int cantPonches,
-			int cantCarrerasImpulsadas, int cantBoletos, int cantBasesRobadas, int cantAtrapadosRobando, int cantTurnos) {
+			int cantDobles, int cantTriples,int golpeadoPorPitcher,int flySacrifio, int cantJonrones, int basesRobadas, int cantPonches,
+			int cantCarrerasImpulsadas, int cantBoletos,int cantSencillos, int cantBasesRobadas, int cantAtrapadosRobando, int cantTurnos) {
 		super(cedula, nombre, edad, numero, estado);
 		this.cantCarreras = cantCarreras;
 		this.cantHits = cantHits;
+		this.cantSencillos=cantSencillos;
 		this.cantDobles = cantDobles;
 		this.cantTriples = cantTriples;
 		this.cantJonrones = cantJonrones;
@@ -31,6 +35,9 @@ public class Bateador extends Jugador {
 		this.cantBoletos = cantBoletos;
 		this.cantBasesRobadas = cantBasesRobadas;
 		this.cantAtrapadosRobando = cantAtrapadosRobando;
+		this.golpeadoPorPitcher= golpeadoPorPitcher;
+		this.flySacrifio=flySacrifio;
+		
 	}
 	
 	
@@ -58,10 +65,48 @@ public class Bateador extends Jugador {
 	public int getCantHits() {
 		return cantHits;
 	}
+	
+	
+
+	public int getGolpeadoPorPitcher() {
+		return golpeadoPorPitcher;
+	}
+
+
+	public void setGolpeadoPorPitcher(int golpeadoPorPitcher) {
+		this.golpeadoPorPitcher = golpeadoPorPitcher;
+	}
+
+
+
+	public int getFlySacrifio() {
+		return flySacrifio;
+	}
+
+
+
+	public void setFlySacrifio(int flySacrifio) {
+		this.flySacrifio = flySacrifio;
+	}
+
+
 
 	public void setCantHits(int cantHits) {
 		this.cantHits = cantHits;
 	}
+	
+
+	public int getCantSencillos() {
+		return cantSencillos;
+	}
+
+
+
+	public void setCantSencillos(int cantSencillos) {
+		this.cantSencillos = cantSencillos;
+	}
+
+
 
 	public int getCantDobles() {
 		return cantDobles;
@@ -141,14 +186,14 @@ public class Bateador extends Jugador {
 	}
 	
 	public float OBP() {
-		return 0;
+		return (cantHits + cantBoletos + golpeadoPorPitcher)/(cantTurnos +cantBoletos + golpeadoPorPitcher + flySacrifio);
 		}
 	public float SLG() {
-		return 0;
+		return ((cantSencillos)+(cantDobles*2)+(cantTriples*3)+(cantJonrones*4) / cantTurnos);
 		
 	}
 	public float OPS() {
-		return 0;
+		return OBP()+SLG();
 	}
 
 }
