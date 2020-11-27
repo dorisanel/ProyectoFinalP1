@@ -1,0 +1,273 @@
+package visual;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.sun.javafx.embed.swing.Disposer;
+
+import logical.Equipo;
+import logical.Jugador;
+import logical.Pitcher;
+import logical.SerieNacional;
+
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class ListadoJugador extends JDialog{
+
+	private final JPanel contentPanel = new JPanel();
+	private DefaultTableModel modelo;
+	private JTable table;
+	private JScrollPane scrollPane;
+	private JComboBox comboBox;
+	private Object[] filas;
+	private JButton lesionesBtn;
+	private JButton regLesionBtn;
+
+	/**
+	 * Launch the application.
+	 */
+	/**
+	 * Create the dialog.
+	 */
+	public ListadoJugador(SerieNacional n1) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				modelo.setRowCount(0);
+				llenarTabla(n1);
+			}
+		});
+		/////////////////////////TEST////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////
+		setTitle("Listado de jugadores");
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 742, 473);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(new BorderLayout(0, 0));
+		{
+			JPanel panel = new JPanel();
+			contentPanel.add(panel, BorderLayout.NORTH);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{92, 0, 0};
+			gbl_panel.rowHeights = new int[] {29, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setLayout(null);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.gridwidth = 2;
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 0;
+				panel.add(panel_1, gbc_panel_1);
+				{
+					JLabel lblNewLabel = new JLabel("Equipo:");
+					lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+					lblNewLabel.setBounds(0, 0, 92, 26);
+					panel_1.add(lblNewLabel);
+				}
+				int size = n1.getMisEquipos().size();
+				String[] text = new String[size];
+				
+				int i = 0;
+				for (Equipo ser : n1.getMisEquipos()) {
+					
+					text[i] = ser.getNombre();
+					
+					i++;
+				}
+				comboBox = new JComboBox();
+				comboBox.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						modelo.setRowCount(0);
+							llenarTabla(n1);
+						
+					}
+				});
+				comboBox.setModel(new DefaultComboBoxModel(text));
+				comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+
+
+				comboBox.setBounds(60, 2, 248, 23);
+				panel_1.add(comboBox);
+			}
+		}
+		{
+			scrollPane = new JScrollPane();
+			contentPanel.add(scrollPane, BorderLayout.CENTER);
+			{
+				table = new JTable();
+				table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						System.out.println(table.getSelectedColumn());
+						if(table.isColumnSelected(0)&&table.getSelectedRow() != -1) {
+							lesionesBtn.setEnabled(true);
+							regLesionBtn.setEnabled(true);
+						}
+					}
+				});
+				modelo = new DefaultTableModel();
+				String[] header1 = {"ID", "Nombre", "Número","Equipo","Posición","Estado"};
+				modelo.setColumnIdentifiers(header1);
+				table.setModel(modelo);
+				scrollPane.setViewportView(table);
+				}
+
+
+
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				regLesionBtn = new JButton("Registrar lesi\u00F3n");
+				regLesionBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int indx = table.getSelectedRow();
+						Equipo equipo = buscarEquipo(n1,comboBox.getSelectedItem().toString());
+						RegLesion RegLesion = new RegLesion(equipo.getMisJugadores().get(indx));
+						RegLesion.setVisible(true);
+					}
+				});
+				regLesionBtn.setEnabled(false);
+				buttonPane.add(regLesionBtn);
+			}
+			{
+				lesionesBtn = new JButton("Ver lesiones");
+				lesionesBtn.setEnabled(false);
+				lesionesBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int indx = table.getSelectedRow();
+						Equipo equipo = buscarEquipo(n1,comboBox.getSelectedItem().toString());
+						Jugador jug = equipo.getMisJugadores().get(indx);
+						Lesion l1 = new Lesion(jug);
+						l1.setVisible(true);
+						lesionesBtn.setEnabled(false);
+					}
+
+				});
+				buttonPane.add(lesionesBtn);
+			}
+			{
+				JButton btnNewButton = new JButton("Modificar");
+				buttonPane.add(btnNewButton);
+			}
+			{
+				JButton okButton = new JButton("Eliminar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selected = 0;
+						int selEquipo;
+						selected = table.getSelectedRow();
+						selEquipo = comboBox.getSelectedIndex();
+						n1.getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
+						modelo.setRowCount(0);
+						llenarTabla(n1);
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+	private void llenarTabla(SerieNacional n1) {
+		filas = new Object[modelo.getColumnCount()];
+		String tipoAFiltrar = comboBox.getSelectedItem().toString();
+		for (Equipo equipo : n1.getMisEquipos()) {
+			for (Jugador jue : equipo.getMisJugadores()) {
+				if(tipoAFiltrar == equipo.getNombre()) {
+					filas[0]=jue.getCedula();
+					filas[1]=jue.getNombre();
+					filas[2]=jue.getNumero();
+					filas[3]=equipo.getNombre();
+					filas[4]=detPosicion(jue);
+					filas[5]=estado(jue.isEstado());
+					modelo.addRow(filas);
+				}
+			}
+		}
+		
+
+	}
+
+
+	public String estado(boolean isEstado) {
+		String estado;
+		if(isEstado == true) {
+			estado = "Disponible";
+		}else {
+			estado = "No disponible";
+		}
+		return estado;
+	}
+	public String detPosicion(Jugador juga) {
+		String salida;
+		if(juga instanceof Pitcher) {
+			salida = "Lanzador";
+		}else {
+			salida = "pitcher";
+		}
+		return salida;
+	}
+
+
+	public Equipo buscarEquipo(SerieNacional n1,String string) {
+		Equipo equipoEncontrado = null;
+		for(Equipo jug : n1.getMisEquipos()) {
+			if(jug.getNombre().compareToIgnoreCase(string) == 0) {
+				equipoEncontrado = jug;
+			}
+		}
+		return equipoEncontrado;
+	}
+
+}
