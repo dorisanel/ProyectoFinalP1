@@ -6,27 +6,28 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 public class Equipo {
 
-	public Equipo(String nombre, String manager) {
+	public Equipo(String id, String nombre, String manager) {
 		super();
+		this.setID(id);
 		this.setNombre(nombre);
 		this.setManager(manager);
 		this.misJugadores = new ArrayList<Jugador>();
 		this.estadisticasTemporadas = new ArrayList<Estadistica>();
-		this.cantJuegosGanados = 0;
-		this.cantJuegosPerdidos = 0;
-		this.cantJuegos = 0;
-		this.turnos = 0;
+		this.setCantJuegosGanados(0);
+		this.setCantJuegosPerdidos(0);
+		this.setCantJuegos(0);
+		this.setTurnos(0);
 	}
-
+	private String ID;
 	private String nombre;
 	private String manager;
 	private ArrayList<Jugador> misJugadores;
 	private ArrayList<Estadistica> estadisticasTemporadas;
 	private Estadistica estadisticaTotal;
-	private int cantJuegosGanados = 0;
-	private int cantJuegosPerdidos = 0;
-	private int cantJuegos = 0;
-	private int turnos = 0;
+	private int cantJuegosGanados;
+	private int cantJuegosPerdidos;
+	private int cantJuegos;
+	private int turnos;
 
 
 	public boolean agregarNuevaEstadistica(String nombreTemporada, Estadistica data){ 
@@ -118,6 +119,36 @@ public class Equipo {
 	}
 	public void setMisJugadores(ArrayList<Jugador> misJugadores) {
 		this.misJugadores = misJugadores;
+	}
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public int getCantJuegosGanados() {
+		return cantJuegosGanados;
+	}
+	public void setCantJuegosGanados(int cantJuegosGanados) {
+		this.cantJuegosGanados = cantJuegosGanados;
+	}
+	public int getCantJuegosPerdidos() {
+		return cantJuegosPerdidos;
+	}
+	public void setCantJuegosPerdidos(int cantJuegosPerdidos) {
+		this.cantJuegosPerdidos = cantJuegosPerdidos;
+	}
+	public int getCantJuegos() {
+		return cantJuegos;
+	}
+	public void setCantJuegos(int cantJuegos) {
+		this.cantJuegos = cantJuegos;
+	}
+	public int getTurnos() {
+		return turnos;
+	}
+	public void setTurnos(int turnos) {
+		this.turnos = turnos;
 	}
 
 

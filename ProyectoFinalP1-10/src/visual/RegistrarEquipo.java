@@ -35,7 +35,7 @@ public class RegistrarEquipo extends JDialog {
 	 * @param modo 
 	 * @param titulo 
 	 */
-	public RegistrarEquipo(String titulo, int modo, Equipo equipo, SerieNacional n1) {
+	public RegistrarEquipo(String titulo, int modo, Equipo equipo) {
 		setTitle(titulo);
 		setBounds(100, 100, 414, 188);
 		getContentPane().setLayout(new BorderLayout());
@@ -91,14 +91,15 @@ public class RegistrarEquipo extends JDialog {
 							//String cod = textCod.getText();
 							String nombre = textNombre.getText();
 							String manager = textManager.getText();
+							String id = textCod.getText();
 
-							aux = new Equipo(nombre, manager);
+							aux = new Equipo(id,nombre, manager);
 
 							if(!(nombre.isEmpty()) || !(manager.isEmpty()))
 								logrado = true;
 
 							if(logrado) {
-								n1.insertarEquipo(aux);
+								SerieNacional.getInstance().insertarEquipo(aux);
 								JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
 								clean();
 							}
@@ -111,7 +112,7 @@ public class RegistrarEquipo extends JDialog {
 
 						else {
 
-							//String cod = textCod.getText();
+							String id = textCod.getText();
 							String nombre = textNombre.getText();
 							String manager = textManager.getText();
 							

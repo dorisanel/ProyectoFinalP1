@@ -55,6 +55,8 @@ public class ListadoJugador extends JDialog{
 	private Object[] filas;
 	private JButton lesionesBtn;
 	private JButton regLesionBtn;
+	private JButton eliminarBtn;
+	private JButton modBtn;
 
 	/**
 	 * Launch the application.
@@ -62,12 +64,12 @@ public class ListadoJugador extends JDialog{
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoJugador(SerieNacional n1) {
+	public ListadoJugador() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				modelo.setRowCount(0);
-				llenarTabla(n1);
+				llenarTabla();
 			}
 		});
 		/////////////////////////TEST////////////////////////////////////////
@@ -103,11 +105,11 @@ public class ListadoJugador extends JDialog{
 					lblNewLabel.setBounds(0, 0, 92, 26);
 					panel_1.add(lblNewLabel);
 				}
-				int size = n1.getMisEquipos().size();
+				int size = SerieNacional.getInstance().getMisEquipos().size();
 				String[] text = new String[size];
 				
 				int i = 0;
-				for (Equipo ser : n1.getMisEquipos()) {
+				for (Equipo ser : SerieNacional.getInstance().getMisEquipos()) {
 					
 					text[i] = ser.getNombre();
 					
@@ -117,7 +119,7 @@ public class ListadoJugador extends JDialog{
 				comboBox.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						modelo.setRowCount(0);
-							llenarTabla(n1);
+							llenarTabla();
 						
 					}
 				});
@@ -138,10 +140,13 @@ public class ListadoJugador extends JDialog{
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						System.out.println(table.getSelectedColumn());
+						
 						if(table.isColumnSelected(0)&&table.getSelectedRow() != -1) {
 							lesionesBtn.setEnabled(true);
 							regLesionBtn.setEnabled(true);
+							eliminarBtn.setVisible(true);
+							modBtn.setVisible(true);
+							
 						}
 					}
 				});
@@ -159,12 +164,14 @@ public class ListadoJugador extends JDialog{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				regLesionBtn = new JButton("Registrar lesi\u00F3n");
+				regLesionBtn.setEnabled(false);
 				regLesionBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int indx = table.getSelectedRow();
-						Equipo equipo = buscarEquipo(n1,comboBox.getSelectedItem().toString());
+						Equipo equipo = buscarEquipo(comboBox.getSelectedItem().toString());
 						RegLesion RegLesion = new RegLesion(equipo.getMisJugadores().get(indx));
 						RegLesion.setVisible(true);
+						regLesionBtn.setEnabled(false);
 					}
 				});
 				regLesionBtn.setEnabled(false);
@@ -176,7 +183,7 @@ public class ListadoJugador extends JDialog{
 				lesionesBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int indx = table.getSelectedRow();
-						Equipo equipo = buscarEquipo(n1,comboBox.getSelectedItem().toString());
+						Equipo equipo = buscarEquipo(comboBox.getSelectedItem().toString());
 						Jugador jug = equipo.getMisJugadores().get(indx);
 						Lesion l1 = new Lesion(jug);
 						l1.setVisible(true);
@@ -187,25 +194,28 @@ public class ListadoJugador extends JDialog{
 				buttonPane.add(lesionesBtn);
 			}
 			{
-				JButton btnNewButton = new JButton("Modificar");
-				buttonPane.add(btnNewButton);
+				modBtn = new JButton("Modificar");
+				modBtn.setVisible(false);
+				buttonPane.add(modBtn);
 			}
 			{
-				JButton okButton = new JButton("Eliminar");
-				okButton.addActionListener(new ActionListener() {
+				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setVisible(false);
+				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int selected = 0;
 						int selEquipo;
 						selected = table.getSelectedRow();
 						selEquipo = comboBox.getSelectedIndex();
-						n1.getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
+						SerieNacional.getInstance().getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
 						modelo.setRowCount(0);
-						llenarTabla(n1);
+						eliminarBtn.setVisible(false);
+						llenarTabla();
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				eliminarBtn.setActionCommand("OK");
+				buttonPane.add(eliminarBtn);
+				getRootPane().setDefaultButton(eliminarBtn);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -219,10 +229,11 @@ public class ListadoJugador extends JDialog{
 			}
 		}
 	}
-	private void llenarTabla(SerieNacional n1) {
+	private void llenarTabla() {
+		if(SerieNacional.getInstance().getMisEquipos().isEmpty() == false) {
 		filas = new Object[modelo.getColumnCount()];
 		String tipoAFiltrar = comboBox.getSelectedItem().toString();
-		for (Equipo equipo : n1.getMisEquipos()) {
+		for (Equipo equipo : SerieNacional.getInstance().getMisEquipos()) {
 			for (Jugador jue : equipo.getMisJugadores()) {
 				if(tipoAFiltrar == equipo.getNombre()) {
 					filas[0]=jue.getCedula();
@@ -234,6 +245,7 @@ public class ListadoJugador extends JDialog{
 					modelo.addRow(filas);
 				}
 			}
+		}
 		}
 		
 
@@ -260,9 +272,9 @@ public class ListadoJugador extends JDialog{
 	}
 
 
-	public Equipo buscarEquipo(SerieNacional n1,String string) {
+	public Equipo buscarEquipo(String string) {
 		Equipo equipoEncontrado = null;
-		for(Equipo jug : n1.getMisEquipos()) {
+		for(Equipo jug : SerieNacional.getInstance().getMisEquipos()) {
 			if(jug.getNombre().compareToIgnoreCase(string) == 0) {
 				equipoEncontrado = jug;
 			}

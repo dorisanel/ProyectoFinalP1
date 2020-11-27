@@ -27,6 +27,7 @@ public class Principal extends JFrame {
 	private JPanel contentPane;
 	private Dimension dim;
 	private JTable table;
+	private JMenuItem listaEquipoBtn;
 	public static DefaultTableModel modelo;
 	public static Object[] fila;
 
@@ -50,7 +51,6 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		SerieNacional n1 = new SerieNacional();
 		setResizable(false);
 		setTitle("Serie Nacional de Béisbol");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +69,7 @@ public class Principal extends JFrame {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				RegistrarEquipo eq = new RegistrarEquipo("Registrar Equipo",0, null,n1);
+				RegistrarEquipo eq = new RegistrarEquipo("Registrar Equipo",0, null);
 				eq.setVisible(true);
 				eq.setLocationRelativeTo(null);
 				eq.setResizable(false);
@@ -77,8 +77,8 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Registrar Jugador");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem registrarJugadorBtn = new JMenuItem("Registrar Jugador");
+		registrarJugadorBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistrarJugador eq = new RegistrarJugador("Registrar Jugador",0, null);
 				eq.setVisible(true);
@@ -86,7 +86,7 @@ public class Principal extends JFrame {
 				eq.setResizable(false);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem);
+		mnNewMenu.add(registrarJugadorBtn);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Registrar Juego");
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -97,14 +97,21 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Lista de Jugadores");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoJugador ljug = new ListadoJugador(n1);
+				ListadoJugador ljug = new ListadoJugador();
 				ljug.setVisible(true);
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_3);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Lista de Equipos");
-		mnNewMenu_1.add(mntmNewMenuItem_4);
+		listaEquipoBtn = new JMenuItem("Lista de Equipos");
+		listaEquipoBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarEquipos le = new ListarEquipos();
+				le.setVisible(true);
+				
+			}
+		});
+		mnNewMenu_1.add(listaEquipoBtn);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Lista de Juegos");
 		mnNewMenu_1.add(mntmNewMenuItem_5);

@@ -1,42 +1,40 @@
 package logical;
 
 public class Bateador extends Jugador {
-	private int cantTurnos=0;
-	private int cantCarreras = 0;
-	private int cantHits = 0;
-	private int cantSencillos= 0;
-	private int cantDobles = 0;
-	private int cantTriples = 0;
-	private int cantJonrones = 0;
-	private int basesRobadas = 0;
-	private int cantPonches = 0;
-	private int cantCarrerasImpulsadas=0;
-	private int cantBoletos=0;
-	private int cantBasesRobadas=0;
-	private int cantAtrapadosRobando=0;
-	private int golpeadoPorPitcher=0;
-	private int flySacrifio=0;
+	private int cantTurnos;
+	private int cantCarreras;
+	private int cantHits;
+	private int cantSencillos;
+	private int cantDobles ;
+	private int cantTriples;
+	private int cantJonrones ;
+	private int basesRobadas;
+	private int cantPonches ;
+	private int cantCarrerasImpulsadas;
+	private int cantBoletos;
+	private int cantBasesRobadas;
+	private int cantAtrapadosRobando;
+	private int golpeadoPorPitcher;
+	private int flySacrifio;
 	
 	
-	public Bateador(String cedula, String nombre, int edad, int numero, boolean estado, int cantCarreras, int cantHits,
-			int cantDobles, int cantTriples,int golpeadoPorPitcher,int flySacrifio, int cantJonrones, int basesRobadas, int cantPonches,
-			int cantCarrerasImpulsadas, int cantBoletos,int cantSencillos, int cantBasesRobadas, int cantAtrapadosRobando, int cantTurnos) {
+	public Bateador(String cedula, String nombre, int edad, int numero, boolean estado) {
 		super(cedula, nombre, edad, numero, estado);
-		this.cantCarreras = cantCarreras;
-		this.cantHits = cantHits;
-		this.cantSencillos=cantSencillos;
-		this.cantDobles = cantDobles;
-		this.cantTriples = cantTriples;
-		this.cantJonrones = cantJonrones;
-		this.basesRobadas = basesRobadas;
-		this.cantPonches = cantPonches;
-		this.cantTurnos=cantTurnos;
-		this.cantCarrerasImpulsadas = cantCarrerasImpulsadas;
-		this.cantBoletos = cantBoletos;
-		this.cantBasesRobadas = cantBasesRobadas;
-		this.cantAtrapadosRobando = cantAtrapadosRobando;
-		this.golpeadoPorPitcher= golpeadoPorPitcher;
-		this.flySacrifio=flySacrifio;
+		this.cantCarreras = 0;
+		this.cantHits = 0;
+		this.cantSencillos=0;
+		this.cantDobles = 0;
+		this.cantTriples = 0;
+		this.cantJonrones = 0;
+		this.basesRobadas = 0;
+		this.cantPonches = 0;
+		this.cantTurnos=0;
+		this.cantCarrerasImpulsadas = 0;
+		this.cantBoletos = 0;
+		this.cantBasesRobadas = 0;
+		this.cantAtrapadosRobando = 0;
+		this.golpeadoPorPitcher= 0;
+		this.flySacrifio=0;
 		
 	}
 	

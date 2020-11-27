@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import logical.Bateador;
 import logical.Equipo;
 import logical.Jugador;
+import logical.Pitcher;
 import logical.SerieNacional;
 
 import java.awt.event.ActionListener;
@@ -43,6 +44,7 @@ public class RegistrarJugador extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @param n1 
 	 */
 	public RegistrarJugador(String titulo, int modo, Jugador jugador) {
 		setTitle(titulo);
@@ -153,17 +155,19 @@ public class RegistrarJugador extends JDialog {
 
 							if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Bateador")) {
 								
-								//Bateador aux = new Bateador();
-								
+								aux = new Bateador(cedula, nombre, edad, dorsal, true);
+								logrado = true;
 							}
 							
 							else if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Pitcher")) {
-								
+								aux = new Pitcher(cedula, nombre, edad, dorsal, true);
+								logrado = true;
 							}
-
+							Equipo equipoSelected = buscarEquipo(equipo);
 							
 							if(logrado) {
-								SerieNacional.getInstance().insertarJugador(aux, equipo);
+								SerieNacional.getInstance().getMisJugadores().add(aux);
+								equipoSelected.getMisJugadores().add(aux);
 								JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
 								clean();
 							}
@@ -216,7 +220,20 @@ public class RegistrarJugador extends JDialog {
 	}
 
 	protected void clean() {
-		// TODO Auto-generated method stub
-		
+	textCedula.setText("");
+	textNombre.setText("");
+	spnEdad.setValue(0);
+	spnDorsal.setValue(0);
+	cbxEquipo.setSelectedIndex(-1);
+	cbxPosicion.setSelectedIndex(-1);
+	}
+	public Equipo buscarEquipo(String string) {
+		Equipo equipoEncontrado = null;
+		for(Equipo jug : SerieNacional.getInstance().getMisEquipos()) {
+			if(jug.getNombre().compareToIgnoreCase(string) == 0) {
+				equipoEncontrado = jug;
+			}
+		}
+		return equipoEncontrado;
 	}
 }
