@@ -25,4 +25,60 @@ public abstract class Jugador {
 	
 	public abstract float PRO();
 
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public int getCantJuegos() {
+		return cantJuegos;
+	}
+
+	public void setCantJuegos(int cantJuegos) {
+		this.cantJuegos = cantJuegos;
+	}
+
+	public ArrayList<Lesion> getMisLesiones() {
+		return misLesiones;
+	}
+
+	public void setMisLesiones(ArrayList<Lesion> misLesiones) {
+		this.misLesiones = misLesiones;
+	}
+
 }
