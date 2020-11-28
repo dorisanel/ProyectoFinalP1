@@ -11,6 +11,7 @@ public class Juego {
 	private String local; 
 	private String estadio;
 	private boolean estado;
+	private boolean terminado;
 	private int cantCarrerasV=0;
 	private int cantCarrerasL=0;
 	
@@ -25,6 +26,7 @@ public class Juego {
 		this.estadio = estadio;
 		this.cantCarrerasV = cantCarrerasV;
 		this.cantCarrerasL = cantCarrerasL;
+		this.terminado = false;
 		this.estado=estado;
 	}
 
@@ -105,6 +107,16 @@ public class Juego {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+
+	public boolean isTerminado() {
+		return terminado;
+	}
+
+
+	public void setTerminado(boolean terminado) {
+		this.terminado = terminado;
 	}
 	
 	// en proceso

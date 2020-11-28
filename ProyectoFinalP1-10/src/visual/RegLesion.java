@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 
 import logical.Equipo;
 import logical.Jugador;
+import logical.SerieNacional;
 
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -140,4 +141,14 @@ public class RegLesion extends JDialog {
 			}
 		}
 	}
+	public Equipo buscarEquipo(String string) {
+		Equipo equipoEncontrado = null;
+		for(Equipo jug : SerieNacional.getInstance().getMisEquipos()) {
+			if(jug.getNombre().compareToIgnoreCase(string) == 0) {
+				equipoEncontrado = jug;
+			}
+		}
+		return equipoEncontrado;
+	}
+
 }

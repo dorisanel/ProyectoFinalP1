@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logical.Equipo;
 import logical.Juego;
 import logical.SerieNacional;
 import javax.swing.ListSelectionModel;
@@ -89,6 +91,12 @@ public class Principal extends JFrame {
 		mnNewMenu.add(registrarJugadorBtn);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Registrar Juego");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegJuego rg1 = new RegJuego();
+				rg1.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		JMenu mnNewMenu_1 = new JMenu("Listados");
@@ -114,6 +122,12 @@ public class Principal extends JFrame {
 		mnNewMenu_1.add(listaEquipoBtn);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Lista de Juegos");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaJuegos Lj1 = new ListaJuegos();
+				Lj1.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Estad\u00EDsticas");

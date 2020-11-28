@@ -20,11 +20,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListarEquipos extends JDialog {
 	private DefaultTableModel modelo;
 	private Object[] filas;
 	private JTable table;
+	private JButton eliminarBtn;
 
 	/**
 	 * Launch the application.
@@ -49,7 +52,8 @@ public class ListarEquipos extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton eliminarBtn = new JButton("Eliminar");
+				 eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int selected = 0;
@@ -57,7 +61,7 @@ public class ListarEquipos extends JDialog {
 						selected = table.getSelectedRow();
 						SerieNacional.getInstance().getMisEquipos().remove(selected);
 						modelo.setRowCount(0);
-						eliminarBtn.setVisible(false);
+						eliminarBtn.setEnabled(false);
 						llenarTabla();
 					}
 				});
@@ -85,6 +89,15 @@ public class ListarEquipos extends JDialog {
 				panel.add(scrollPane);
 				{
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if(table.isColumnSelected(0) == true) {
+								eliminarBtn.setEnabled(true);
+							}
+						}
+					});
+					
 					modelo = new DefaultTableModel();
 					String[] header1 = {"Código", "Nombre", "Manager","Juegos","Ganados","Perdidos"};
 					modelo.setColumnIdentifiers(header1);
@@ -104,8 +117,12 @@ public class ListarEquipos extends JDialog {
 					filas[3]=equipo.getCantJuegos();
 					filas[4]=equipo.getCantJuegosGanados();
 					filas[5]=equipo.getCantJuegosPerdidos();
+					
 					modelo.addRow(filas);
 			}
+	}else {
+		JOptionPane.showMessageDialog(null, "No hay datos que mostrar", "Error", JOptionPane.ERROR_MESSAGE);
+		dispose();
 	}
 	}
 }

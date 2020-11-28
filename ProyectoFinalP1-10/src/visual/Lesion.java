@@ -68,7 +68,7 @@ public class Lesion extends JDialog {
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						System.out.println(table.getSelectedColumn());
+						
 						if(table.isColumnSelected(0)&&table.getSelectedRow() != -1) {
 							eliminarBtn.setEnabled(true);
 							modificarBtn.setEnabled(true);
@@ -113,7 +113,7 @@ public class Lesion extends JDialog {
 						public void actionPerformed(ActionEvent e) {
 							try {
 								int rowIndex = table.getSelectedRow();
-								System.out.println(table.getSelectedRow());
+								
 								String tipo = table.getModel().getValueAt(rowIndex, 0).toString();
 								String Duracion = table.getModel().getValueAt(rowIndex, 2).toString();
 								String Diagnostico = table.getModel().getValueAt(rowIndex, 3).toString();

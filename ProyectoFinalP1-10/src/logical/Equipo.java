@@ -1,12 +1,14 @@
 package logical;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 public class Equipo {
 
-	public Equipo(String id, String nombre, String manager) {
+	public Equipo(String id, String nombre, String manager, ImageIcon img) {
 		super();
 		this.setID(id);
 		this.setNombre(nombre);
@@ -17,6 +19,7 @@ public class Equipo {
 		this.setCantJuegosPerdidos(0);
 		this.setCantJuegos(0);
 		this.setTurnos(0);
+		this.image = img;
 	}
 	private String ID;
 	private String nombre;
@@ -28,6 +31,7 @@ public class Equipo {
 	private int cantJuegosPerdidos;
 	private int cantJuegos;
 	private int turnos;
+	private ImageIcon image;
 
 
 	public boolean agregarNuevaEstadistica(String nombreTemporada, Estadistica data){ 
@@ -149,6 +153,12 @@ public class Equipo {
 	}
 	public void setTurnos(int turnos) {
 		this.turnos = turnos;
+	}
+	public ImageIcon getImage() {
+		return image;
+	}
+	public void setImage(ImageIcon image) {
+		this.image = image;
 	}
 
 
