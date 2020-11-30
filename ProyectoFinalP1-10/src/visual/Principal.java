@@ -130,8 +130,19 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Estad\u00EDsticas");
-		menuBar.add(mntmNewMenuItem_6);
+		JMenuItem mntmNewMenuItem = new JMenuItem("Listado de Lesiones");
+		mnNewMenu_1.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Estad\u00EDsticas");
+		menuBar.add(mntmNewMenuItem_4);
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GraficaLesiones eq = new GraficaLesiones();
+				eq.setVisible(true);
+				eq.setLocationRelativeTo(null);
+				eq.setResizable(false);
+			}
+		});
 	
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -82,74 +82,74 @@ public class SerieNacional {
 	public ArrayList<Jugador> mvpDiezBateador() {
 		ArrayList<Jugador> mvp = new ArrayList<Jugador>();
 		Jugador aux = null;
-		
+
 		for(int i=0; i<10; i++) {
-			
+
 			for(Jugador jugador: misJugadores) {
-				
+
 				if(jugador instanceof Bateador)
 				{
-							
-				if(aux == null) {
-									
-					if(mvp.isEmpty())
-						aux = jugador;
-					
-					else if(!mvp.contains(jugador))
-						
-						aux = jugador;
-					
+
+					if(aux == null) {
+
+						if(mvp.isEmpty())
+							aux = jugador;
+
+						else if(!mvp.contains(jugador))
+
+							aux = jugador;
+
+					}
+
+					else if(jugador.PRO()>=aux.PRO() && !(mvp.contains(jugador)))
+						aux = jugador;				
 				}
-									
-				else if(jugador.PRO()>=aux.PRO() && !(mvp.contains(jugador)))
-					aux = jugador;				
+
+				if(aux!= null)
+					mvp.add(aux);
+
+				aux = null;
 			}
-			
-			if(aux!= null)
-				mvp.add(aux);
-			
-			aux = null;
+
 		}
-			
-		}
-			
+
 		return mvp;
 	}
 	
 	public ArrayList<Jugador> mvpDiezPitcher() {
 		ArrayList<Jugador> mvp = new ArrayList<Jugador>();
 		Jugador aux = null;
-		
+
 		for(int i=0; i<10; i++) {
-			
+
 			for(Jugador jugador: misJugadores) {
-				
+
 				if(jugador instanceof Pitcher)
 				{
-							
-				if(aux == null) {
-									
-					if(mvp.isEmpty())
-						aux = jugador;
-					
-					else if(!mvp.contains(jugador))
-						
-						aux = jugador;
-					
+
+					if(aux == null) {
+
+						if(mvp.isEmpty())
+							aux = jugador;
+
+						else if(!mvp.contains(jugador))
+
+							aux = jugador;
+
+					}
+
+					else if(((Pitcher)jugador).PCL()>=((Pitcher)jugador).PCL() && !(mvp.contains(jugador)))
+						aux = jugador;				
 				}
-									
-				else if(((Pitcher)jugador).PCL()>=((Pitcher)jugador).PCL() && !(mvp.contains(jugador)))
-					aux = jugador;				
+
+				if(aux!= null)
+					mvp.add(aux);
+
+				aux = null;
 			}
-			
-			if(aux!= null)
-				mvp.add(aux);
-			
-			aux = null;
+
 		}
-			
-		}
-			
+
 		return mvp;
 	}
 

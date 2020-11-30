@@ -143,15 +143,17 @@ public class RegistrarJugador extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						boolean logrado = false;
+						String equipo = cbxEquipo.getSelectedItem().toString();
+						String nombre = textNombre.getText();
+						String cedula = textCedula.getText();
+						
+						int edad = new Integer(spnEdad.getValue().toString());
+						int dorsal = new Integer(spnDorsal.getValue().toString());
 						
 						if(modo == 0) {
 							Jugador aux = null;
 							
-							String nombre = textNombre.getText();
-							String cedula = textCedula.getText();
-							String equipo = cbxEquipo.getSelectedItem().toString();
-							int edad = new Integer(spnEdad.getValue().toString());
-							int dorsal = new Integer(spnDorsal.getValue().toString());		
+									
 
 							if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Bateador")) {
 								
@@ -178,15 +180,14 @@ public class RegistrarJugador extends JDialog {
 						}
 
 
-						/*else {
+						else {
 
-							//String cod = textCod.getText();
-							String nombre = textNombre.getText();
-							String manager = textManager.getText();
-							
-							if(!(nombre.isEmpty()) || !(manager.isEmpty())) {
-								equipo.setManager(manager);
-								equipo.setNombre(nombre);
+														
+							if(!(nombre.isEmpty()) || !(cedula.isEmpty())) {
+								jugador.setCedula(cedula);
+								jugador.setNombre(nombre);
+								jugador.setEdad(edad);
+								jugador.setNumero(dorsal);
 								logrado = true;
 							}
 
@@ -198,7 +199,7 @@ public class RegistrarJugador extends JDialog {
 							else
 								JOptionPane.showMessageDialog(null, "Complete todas las casillas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
 							
-						}*/
+						}
 						
 					}
 				});

@@ -65,7 +65,7 @@ public class RegLesion extends JDialog {
 			panel.add(lblNewLabel);
 			
 			comboBox = new JComboBox();
-			String[] categorias = {"<Seleccione>","Brazo","Muñeca","Otro"};
+			String[] categorias = {"<Seleccione>","Tendon","Fractura","Contusion","Hombros","Codos","Rodillas"};
 			comboBox.setModel(new DefaultComboBoxModel(categorias));
 			comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			comboBox.setBounds(187, 23, 207, 26);
