@@ -179,8 +179,14 @@ public class Bateador extends Jugador {
 	}
 
 	public float PRO() {
-		// TODO Auto-generated method stub
-		return cantHits/cantTurnos;
+		float returned = 0;
+		if(cantHits == 0) {
+			returned = 0;
+		}else {
+			returned = cantHits/cantTurnos;
+
+		}
+		return returned;
 	}
 	
 	public float OBP() {

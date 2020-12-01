@@ -56,7 +56,7 @@ public class ListadoJugador extends JDialog{
 	private JButton lesionesBtn;
 	private JButton regLesionBtn;
 	private JButton eliminarBtn;
-	private JButton modBtn;
+	private JButton modificarBtn;
 
 	/**
 	 * Launch the application.
@@ -68,6 +68,8 @@ public class ListadoJugador extends JDialog{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				lesionesBtn.setEnabled(false);
+				regLesionBtn.setEnabled(false);
 				modelo.setRowCount(0);
 				llenarTabla();
 			}
@@ -144,8 +146,8 @@ public class ListadoJugador extends JDialog{
 						if(table.isColumnSelected(0)&&table.getSelectedRow() != -1) {
 							lesionesBtn.setEnabled(true);
 							regLesionBtn.setEnabled(true);
-							eliminarBtn.setVisible(true);
-							modBtn.setVisible(true);
+							eliminarBtn.setEnabled(true);
+							modificarBtn.setEnabled(true);
 							
 						}
 					}
@@ -172,6 +174,8 @@ public class ListadoJugador extends JDialog{
 						RegLesion RegLesion = new RegLesion(equipo.getMisJugadores().get(indx));
 						RegLesion.setVisible(true);
 						regLesionBtn.setEnabled(false);
+						modificarBtn.setEnabled(false);
+						eliminarBtn.setEnabled(false);
 					}
 				});
 				regLesionBtn.setEnabled(false);
@@ -194,12 +198,14 @@ public class ListadoJugador extends JDialog{
 				buttonPane.add(lesionesBtn);
 			}
 			{
-				modBtn = new JButton("Modificar");
-				modBtn.setVisible(false);
-				buttonPane.add(modBtn);
+				modificarBtn = new JButton("Modificar");
+				modificarBtn.setEnabled(false);
+				modificarBtn.setVisible(false);
+				buttonPane.add(modificarBtn);
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setEnabled(false);
 				eliminarBtn.setVisible(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

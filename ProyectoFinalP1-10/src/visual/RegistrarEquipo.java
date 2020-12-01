@@ -31,7 +31,10 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegistrarEquipo extends JDialog {
 
@@ -98,6 +101,7 @@ public class RegistrarEquipo extends JDialog {
 		contentPanel.add(lblNewLabel_3);
 		
 		txLogo = new JTextField();
+		txLogo.setEditable(false);
 		txLogo.setBounds(129, 246, 236, 23);
 		contentPanel.add(txLogo);
 		txLogo.setColumns(10);
@@ -111,9 +115,14 @@ public class RegistrarEquipo extends JDialog {
 		establecerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//establecer imagen
+				
 				m1 = new ImageIcon(txLogo.getText());
 				paneImagen.add(imagen);
+				try {
 				imagen.setIcon(m1);
+				}catch(Exception ew) {
+					JOptionPane.showMessageDialog(null, "Especifique una ruta valida", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 				buscarBtn.setVisible(false);
 			}
 		});

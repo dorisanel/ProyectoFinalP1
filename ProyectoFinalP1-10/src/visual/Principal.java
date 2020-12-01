@@ -23,16 +23,21 @@ import logical.SerieNacional;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
-	private JTable table;
 	private JMenuItem listaEquipoBtn;
 	public static DefaultTableModel modelo;
 	public static Object[] fila;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -54,15 +59,26 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		setResizable(false);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				try {
+				cargarTabla();
+				}catch(Exception e0) {
+					
+				}
+			}
+		});
+		setMaximumSize(new Dimension(2080, 1960));
 		setTitle("Serie Nacional de Béisbol");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 540, 362);
+		setBounds(100, 100, 2396, 1257);
 		dim = getToolkit().getScreenSize();
 		super.setSize(dim.width, dim.height-50);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setRequestFocusEnabled(false);
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Registro");
@@ -161,8 +177,8 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Pr\u00F3ximos Juegos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(1229, 426, 365, 371);
+		panel.setBorder(new TitledBorder(null, "Pr\u00F3ximos juegos:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(883, 363, 550, 414);
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -174,11 +190,9 @@ public class Principal extends JFrame {
 		modelo.setColumnIdentifiers(columns);
 		table = new JTable();
 		table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		table.setEnabled(false);
 		table.setModel(modelo);
 		table.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table);
-		
 		cargarTabla();
 	}
 
@@ -187,15 +201,12 @@ public class Principal extends JFrame {
 		fila = new Object[modelo.getColumnCount()];
 
 		for(Juego juego : SerieNacional.getInstance().getMisJuegos()) {
-			
 			if(juego.isEstado()) {
-
 				fila[0] = juego.getLocal();
 				fila[1] = juego.getVisitante(); 
 				fila[2] = juego.getFecha();
 				fila[3] = juego.getEstadio();
 			}
-
 			modelo.addRow(fila);
 
 		}
