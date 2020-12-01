@@ -180,7 +180,7 @@ public class RegistrarEquipo extends JDialog {
 
 							aux = new Equipo(id,nombre, manager,new ImageIcon(txLogo.getText()));
 
-							if(!(nombre.isEmpty()) || !(manager.isEmpty()))
+							if(!(nombre.isEmpty()) && !(manager.isEmpty()) && !(id.isEmpty()))
 								logrado = true;
 
 							if(logrado) {
@@ -203,9 +203,10 @@ public class RegistrarEquipo extends JDialog {
 							String nombre = textNombre.getText();
 							String manager = textManager.getText();
 							
-							if(!(nombre.isEmpty()) && !(manager.isEmpty())) {
+							if(!(nombre.isEmpty()) && !(manager.isEmpty()) && !(id.isEmpty())) {
 								equipo.setManager(manager);
 								equipo.setNombre(nombre);
+								equipo.setID(id);
 								logrado = true;
 							}
 

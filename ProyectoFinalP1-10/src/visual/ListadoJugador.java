@@ -57,6 +57,7 @@ public class ListadoJugador extends JDialog{
 	private JButton regLesionBtn;
 	private JButton eliminarBtn;
 	private JButton modificarBtn;
+	private Jugador aux = null;
 
 	/**
 	 * Launch the application.
@@ -143,7 +144,11 @@ public class ListadoJugador extends JDialog{
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						
-						if(table.isColumnSelected(0)&&table.getSelectedRow() != -1) {
+						int seleccion = table.getSelectedRow();
+						
+						if(seleccion != -1) {
+							
+							aux = SerieNacional.getInstance().buscarJugador((String)modelo.getValueAt(seleccion, 0));
 							lesionesBtn.setEnabled(true);
 							regLesionBtn.setEnabled(true);
 							eliminarBtn.setEnabled(true);
@@ -199,14 +204,24 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				modificarBtn = new JButton("Modificar");
+				modificarBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						if(aux != null) {
+							RegistrarJugador eq = new RegistrarJugador("Modificar Jugador", 1, aux);
+							eq.setVisible(true);
+							eq.setLocationRelativeTo(null);
+							eq.setResizable(false);
+						}
+						
+					}
+				});
 				modificarBtn.setEnabled(false);
-				modificarBtn.setVisible(false);
 				buttonPane.add(modificarBtn);
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
 				eliminarBtn.setEnabled(false);
-				eliminarBtn.setVisible(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int selected = 0;

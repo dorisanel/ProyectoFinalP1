@@ -25,6 +25,7 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
+import java.awt.SystemColor;
 
 public class RegistrarJugador extends JDialog {
 
@@ -50,6 +51,26 @@ public class RegistrarJugador extends JDialog {
 		setTitle(titulo);
 		setBounds(100, 100, 397, 221);
 		getContentPane().setLayout(new BorderLayout());
+		
+		/*if(modo == 1) {
+			//cbxEquipo.setSelectedItem(SerieNacional.getInstance().equipoJugador(jugador));
+			//cbxEquipo.setEnabled(false);
+			//textCedula.setText(jugador.getCedula());
+			//textNombre.setText(jugador.getNombre());
+			//spnEdad.setValue(jugador.getEdad());
+			//spnDorsal.setValue(jugador.getNumero());
+			if(jugador instanceof Bateador)
+				System.out.println("jaja");
+				//cbxPosicion.setSelectedItem("Bateador");
+			
+			else if(jugador instanceof Pitcher)
+				System.out.println("jajap");
+				//cbxPosicion.setSelectedItem("Pitcher");
+			
+			//cbxPosicion.setEnabled(false);
+		}*/
+		
+		
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -115,8 +136,7 @@ public class RegistrarJugador extends JDialog {
 		JLabel lblNewLabel_4 = new JLabel("Equipo:");
 		lblNewLabel_4.setBounds(10, 122, 46, 14);
 		contentPanel.add(lblNewLabel_4);
-		
-				
+			
 		
 		JLabel lblNewLabel_5 = new JLabel("Posici\u00F3n:");
 		lblNewLabel_5.setBounds(203, 122, 59, 14);
@@ -132,6 +152,7 @@ public class RegistrarJugador extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton(" ");
+				okButton.setBackground(SystemColor.controlHighlight);
 				
 				if(modo == 0)
 					okButton.setText("Registrar");
@@ -145,27 +166,30 @@ public class RegistrarJugador extends JDialog {
 						boolean logrado = false;
 						String equipo = cbxEquipo.getSelectedItem().toString();
 						String nombre = textNombre.getText();
-						String cedula = textCedula.getText();
-						
+						String cedula = textCedula.getText();				
 						int edad = new Integer(spnEdad.getValue().toString());
 						int dorsal = new Integer(spnDorsal.getValue().toString());
+						Equipo equipoSelected = SerieNacional.getInstance().buscarEquipo(equipo);
 						
 						if(modo == 0) {
 							Jugador aux = null;
 							
 									
-
-							if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Bateador")) {
+							if(equipoSelected != null) {
 								
-								aux = new Bateador(cedula, nombre, edad, dorsal, true);
-								logrado = true;
+								if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Bateador")) {
+									
+									aux = new Bateador(cedula, nombre, edad, dorsal, true);
+									logrado = true;
+								}
+								
+								else if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Pitcher")) {
+									aux = new Pitcher(cedula, nombre, edad, dorsal, true);
+									logrado = true;
+								}
+								
+								
 							}
-							
-							else if(cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("Pitcher")) {
-								aux = new Pitcher(cedula, nombre, edad, dorsal, true);
-								logrado = true;
-							}
-							Equipo equipoSelected = buscarEquipo(equipo);
 							
 							if(logrado) {
 								SerieNacional.getInstance().getMisJugadores().add(aux);
@@ -176,13 +200,13 @@ public class RegistrarJugador extends JDialog {
 							
 							else
 								JOptionPane.showMessageDialog(null, "Complete todas las casillas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
-
+							
 						}
 
 
 						else {
 
-														
+							
 							if(!(nombre.isEmpty()) || !(cedula.isEmpty())) {
 								jugador.setCedula(cedula);
 								jugador.setNombre(nombre);
@@ -209,6 +233,7 @@ public class RegistrarJugador extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -223,18 +248,10 @@ public class RegistrarJugador extends JDialog {
 	protected void clean() {
 	textCedula.setText("");
 	textNombre.setText("");
-	spnEdad.setValue(0);
-	spnDorsal.setValue(0);
+	spnEdad.setValue(18);
+	spnDorsal.setValue(1);
 	cbxEquipo.setSelectedIndex(-1);
 	cbxPosicion.setSelectedIndex(-1);
 	}
-	public Equipo buscarEquipo(String string) {
-		Equipo equipoEncontrado = null;
-		for(Equipo jug : SerieNacional.getInstance().getMisEquipos()) {
-			if(jug.getNombre().compareToIgnoreCase(string) == 0) {
-				equipoEncontrado = jug;
-			}
-		}
-		return equipoEncontrado;
-	}
+	
 }

@@ -273,16 +273,33 @@ public class Pitcher extends Jugador {
 
 
 	public float PCL() {
-		return (carrerasLimpias*9)/inningsPitched;
+		
+		float pcl = 0;
+		
+		if(inningsPitched > 0)
+			pcl = (carrerasLimpias*9)/inningsPitched;
+		
+		return pcl;
 	}
 	
 	public float WHIP() {
-		return (juegosGanados+cantHits)/inningsPitched;
+		
+		float whip = 0;
+		
+		if(inningsPitched > 0)
+			whip = (juegosGanados+cantHits)/inningsPitched;
+		
+		return whip;
 	}
 
 	@Override
 	public float PRO() {
-		return cantHits/turnoAlBateOponente;
+		float pro = 0;
+		
+		if(turnoAlBateOponente > 0)
+			pro = cantHits/turnoAlBateOponente;
+		
+		return pro;
 	}
 
 }

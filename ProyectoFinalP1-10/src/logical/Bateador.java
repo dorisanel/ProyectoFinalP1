@@ -190,11 +190,29 @@ public class Bateador extends Jugador {
 	}
 	
 	public float OBP() {
-		return (cantHits + cantBoletos + golpeadoPorPitcher)/(cantTurnos +cantBoletos + golpeadoPorPitcher + flySacrifio);
+		
+		float OBP = 0;
+		
+		try {
+			OBP = (cantHits + cantBoletos + golpeadoPorPitcher)/(cantTurnos +cantBoletos + golpeadoPorPitcher + flySacrifio);
+		} catch (ArithmeticException e){
+			
+		}
+		
+		return OBP;
+		
 		}
 	public float SLG() {
-		return ((cantSencillos)+(cantDobles*2)+(cantTriples*3)+(cantJonrones*4) / cantTurnos);
 		
+		float slg = 0;
+		
+		try {
+			slg = ((cantSencillos)+(cantDobles*2)+(cantTriples*3)+(cantJonrones*4) / cantTurnos);
+		}catch(ArithmeticException e) {
+			
+		}
+		
+		return slg;
 	}
 	public float OPS() {
 		return OBP()+SLG();

@@ -61,14 +61,14 @@ public class SerieNacional {
 				
 	}
 
-	private Equipo buscarEquipo(String nombre) {
+	public Equipo buscarEquipo(String nombre) {
 		
 		Equipo aux = null;
 		
 		boolean encontrado = false;
 		int i = 0;
 		
-		while(!encontrado && i<misJugadores.size()) {
+		while(!encontrado && i<misEquipos.size()) {
 			if(misEquipos.get(i).getNombre().equalsIgnoreCase(nombre)) {
 				aux = misEquipos.get(i);
 				encontrado = true;
@@ -151,6 +151,41 @@ public class SerieNacional {
 		}
 
 		return mvp;
+	}
+	
+	public String equipoJugador(Jugador j) {
+		String aux = null;
+		
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(!encontrado && i<misJugadores.size()) {
+			if(misEquipos.get(i).getMisJugadores().contains(j)) {
+				aux = misEquipos.get(i).getNombre();
+				encontrado = true;
+			}	
+			
+			i++;
+		}
+		return aux;
+		
+	}
+
+	public Jugador buscarJugador(String cedula) {
+		Jugador aux = null;
+		
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(!encontrado && i<misJugadores.size()) {
+			if(misJugadores.get(i).getCedula().equalsIgnoreCase(cedula)) {
+				aux = misJugadores.get(i);
+				encontrado = true;
+			}	
+			
+			i++;
+		}
+		return aux;
 	}
 
 }

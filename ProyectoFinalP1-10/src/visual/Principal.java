@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
@@ -65,7 +66,7 @@ public class Principal extends JFrame {
 				try {
 				cargarTabla();
 				}catch(Exception e0) {
-					
+
 				}
 			}
 		});
@@ -161,6 +162,23 @@ public class Principal extends JFrame {
 				dialog.setVisible(true);
 			}
 		});
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Estad\u00EDsticas Jugadores");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					EstadisticaJugadores dialog = new EstadisticaJugadores();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				}catch(ArithmeticException e1) {
+					JOptionPane.showMessageDialog(null, "No existen estadisticas definidas.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_6);
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
