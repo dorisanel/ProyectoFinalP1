@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -133,8 +134,18 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado de Lesiones");
 		mnNewMenu_1.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Estad\u00EDsticas");
-		menuBar.add(mntmNewMenuItem_4);
+		JMenu mnNewMenu_2 = new JMenu("Estad\u00EDsticas");
+		menuBar.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Top 10 Jugadores");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Top10 dialog = new Top10();
+				dialog.setLocationRelativeTo(null);
+				dialog.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_4);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GraficaLesiones eq = new GraficaLesiones();
