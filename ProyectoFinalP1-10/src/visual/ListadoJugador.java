@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sun.javafx.embed.swing.Disposer;
 
+import javafx.scene.control.ComboBox;
 import logical.Equipo;
 import logical.Jugador;
 import logical.Pitcher;
@@ -58,7 +59,8 @@ public class ListadoJugador extends JDialog{
 	private JButton eliminarBtn;
 	private JButton modificarBtn;
 	private Jugador aux = null;
-
+	private String[] text;
+	private JPanel panel_1;
 	/**
 	 * Launch the application.
 	 */
@@ -69,14 +71,14 @@ public class ListadoJugador extends JDialog{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				generarLista();
 				lesionesBtn.setEnabled(false);
 				regLesionBtn.setEnabled(false);
 				modelo.setRowCount(0);
 				llenarTabla();
 			}
 		});
-		/////////////////////////TEST////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////
+
 		setTitle("Listado de jugadores");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 742, 473);
@@ -94,7 +96,7 @@ public class ListadoJugador extends JDialog{
 			gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
-				JPanel panel_1 = new JPanel();
+				panel_1 = new JPanel();
 				panel_1.setLayout(null);
 				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 				gbc_panel_1.gridwidth = 2;
@@ -108,31 +110,7 @@ public class ListadoJugador extends JDialog{
 					lblNewLabel.setBounds(0, 0, 92, 26);
 					panel_1.add(lblNewLabel);
 				}
-				int size = SerieNacional.getInstance().getMisEquipos().size();
-				String[] text = new String[size];
-				
-				int i = 0;
-				for (Equipo ser : SerieNacional.getInstance().getMisEquipos()) {
-					
-					text[i] = ser.getNombre();
-					
-					i++;
-				}
-				comboBox = new JComboBox();
-				comboBox.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						modelo.setRowCount(0);
-							llenarTabla();
-						
-					}
-				});
-				comboBox.setModel(new DefaultComboBoxModel(text));
-				comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
-
-
-				comboBox.setBounds(60, 2, 248, 23);
-				panel_1.add(comboBox);
 			}
 		}
 		{
@@ -143,17 +121,17 @@ public class ListadoJugador extends JDialog{
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						
+
 						int seleccion = table.getSelectedRow();
-						
+
 						if(seleccion != -1) {
-							
+
 							aux = SerieNacional.getInstance().buscarJugador((String)modelo.getValueAt(seleccion, 0));
 							lesionesBtn.setEnabled(true);
 							regLesionBtn.setEnabled(true);
 							eliminarBtn.setEnabled(true);
 							modificarBtn.setEnabled(true);
-							
+
 						}
 					}
 				});
@@ -162,7 +140,7 @@ public class ListadoJugador extends JDialog{
 				modelo.setColumnIdentifiers(header1);
 				table.setModel(modelo);
 				scrollPane.setViewportView(table);
-				}
+			}
 
 
 
@@ -206,14 +184,14 @@ public class ListadoJugador extends JDialog{
 				modificarBtn = new JButton("Modificar");
 				modificarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						if(aux != null) {
 							RegistrarJugador eq = new RegistrarJugador("Modificar Jugador", 1, aux);
 							eq.setVisible(true);
 							eq.setLocationRelativeTo(null);
 							eq.setResizable(false);
 						}
-						
+
 					}
 				});
 				modificarBtn.setEnabled(false);
@@ -229,9 +207,9 @@ public class ListadoJugador extends JDialog{
 						selected = table.getSelectedRow();
 						selEquipo = comboBox.getSelectedIndex();
 						SerieNacional.getInstance().getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
-						modelo.setRowCount(0);
 						eliminarBtn.setVisible(false);
 						llenarTabla();
+						modelo.setRowCount(0);
 					}
 				});
 				eliminarBtn.setActionCommand("OK");
@@ -252,23 +230,34 @@ public class ListadoJugador extends JDialog{
 	}
 	private void llenarTabla() {
 		if(SerieNacional.getInstance().getMisEquipos().isEmpty() == false) {
-		filas = new Object[modelo.getColumnCount()];
-		String tipoAFiltrar = comboBox.getSelectedItem().toString();
-		for (Equipo equipo : SerieNacional.getInstance().getMisEquipos()) {
-			for (Jugador jue : equipo.getMisJugadores()) {
-				if(tipoAFiltrar == equipo.getNombre()) {
-					filas[0]=jue.getCedula();
-					filas[1]=jue.getNombre();
-					filas[2]=jue.getNumero();
-					filas[3]=equipo.getNombre();
-					filas[4]=detPosicion(jue);
-					filas[5]=estado(jue.isEstado());
-					modelo.addRow(filas);
+			filas = new Object[modelo.getColumnCount()];
+			String tipoAFiltrar = comboBox.getSelectedItem().toString();
+			for (Equipo equipo : SerieNacional.getInstance().getMisEquipos()) {
+				for (Jugador jue : equipo.getMisJugadores()) {
+					if(tipoAFiltrar == equipo.getNombre()) {
+						filas[0]=jue.getCedula();
+						filas[1]=jue.getNombre();
+						filas[2]=jue.getNumero();
+						filas[3]=equipo.getNombre();
+						filas[4]=detPosicion(jue);
+						filas[5]=estado(jue.isEstado());
+						modelo.addRow(filas);
+					}
+
+					if(tipoAFiltrar == "<Todos>"){
+
+						filas[0]=jue.getCedula();
+						filas[1]=jue.getNombre();
+						filas[2]=jue.getNumero();
+						filas[3]=equipo.getNombre();
+						filas[4]=detPosicion(jue);
+						filas[5]=estado(jue.isEstado());
+						modelo.addRow(filas);
+					}
 				}
 			}
 		}
-		}
-		
+
 
 	}
 
@@ -301,6 +290,31 @@ public class ListadoJugador extends JDialog{
 			}
 		}
 		return equipoEncontrado;
+	}
+	public void generarLista() {
+		int cant = 0;
+		cant = SerieNacional.getInstance().getMisEquipos().size();
+		text = new String[cant+1];
+		text[0] = "<Todos>";
+		int i = 1;
+		for (Equipo ser : SerieNacional.getInstance().getMisEquipos()) {
+			text[i] = ser.getNombre();
+			i++;
+		}
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modelo.setRowCount(0);
+				llenarTabla();
+
+			}
+		});
+
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBox.setBounds(60, 2, 248, 23);
+		panel_1.add(comboBox);
+		comboBox.setModel(new DefaultComboBoxModel(text));
+
 	}
 
 }
