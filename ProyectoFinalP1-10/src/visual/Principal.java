@@ -75,18 +75,7 @@ public class Principal extends JFrame {
 		});
 
 		/////////////////////////TEST////////////////////////////////////////
-		Equipo q1 = new Equipo("001", "Licey", "Angelo word",null);
-		Equipo q2 = new Equipo("002", "Aguilas", "Pedro Martinez",null);
-		SerieNacional.getInstance().getMisEquipos().add(q1);
-		SerieNacional.getInstance().getMisEquipos().add(q2);
-		Jugador p1 = new Pitcher("047","Pedro",0,0,true);
-		Jugador p2 = new Pitcher("048","Mario",0,0,true);
-		Jugador p3 = new Pitcher("049","Juan",0,0,true);
-		Jugador p4 = new Pitcher("050","Aurelio",0,0,true);
-		SerieNacional.getInstance().getMisEquipos().get(0).insertarJugador(p1);
-		SerieNacional.getInstance().getMisEquipos().get(0).insertarJugador(p2);
-		SerieNacional.getInstance().getMisEquipos().get(1).insertarJugador(p3);
-		SerieNacional.getInstance().getMisEquipos().get(1).insertarJugador(p4);
+		
 		/////////////////////////////////////////////////////////////////////
 
 
