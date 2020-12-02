@@ -1,10 +1,15 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Juego {
+public class Juego implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date fecha;
 	private ArrayList<Equipo> misEquipos;
 	private String visitante;           

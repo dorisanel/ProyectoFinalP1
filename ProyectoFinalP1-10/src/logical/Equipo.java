@@ -1,12 +1,19 @@
 package logical;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
-public class Equipo {
+public class Equipo implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	public Equipo(String id, String nombre, String manager, ImageIcon img) {
 		super();

@@ -1,6 +1,8 @@
 package visual;
 
 import java.awt.BorderLayout;
+
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -18,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+
 import logical.Equipo;
 import logical.Juego;
 import logical.Jugador;
@@ -31,6 +34,12 @@ import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 
 
@@ -49,10 +58,38 @@ public class Principal extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
+				FileInputStream serieN;
+				FileOutputStream serieN2;
+				ObjectInputStream serieRead;
+				ObjectOutputStream serieWrite;
+				try {
+					serieN = new FileInputStream("SerieNacional.dat");
+					serieRead = new ObjectInputStream(serieN); 
+					SerieNacional temp = (SerieNacional)serieRead.readObject();
+					SerieNacional.setSerieNacional(temp);
+					serieN.close();
+					serieRead.close();
+				} catch (FileNotFoundException e) {
+					try {
+						serieN2 = new FileOutputStream("SerieNacional.dat");
+						serieWrite = new ObjectOutputStream(serieN2);
+						serieWrite.writeObject(SerieNacional.getInstance());
+					} catch (FileNotFoundException e1) {
+
+					} catch (IOException e1) {
+
+					}
+				} catch (IOException e) {
+
+				} catch (ClassNotFoundException e) {
+					
+				}
+
 				try {
 					Principal frame = new Principal();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -66,10 +103,29 @@ public class Principal extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				
+				
 				try {
 					cargarTabla();
 				}catch(Exception e0) {
 
+				}
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				FileOutputStream Serie2;
+				ObjectOutputStream SerieWrite;
+				try{
+					Serie2 = new FileOutputStream("SerieNacional.dat");
+					SerieWrite = new ObjectOutputStream(Serie2);
+					SerieWrite.writeObject(SerieNacional.getInstance());
+					Serie2.close();
+					SerieWrite.close();
+				} catch(FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch(IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});

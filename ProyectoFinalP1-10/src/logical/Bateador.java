@@ -1,6 +1,12 @@
 package logical;
 
-public class Bateador extends Jugador {
+import java.io.Serializable;
+
+public class Bateador extends Jugador implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cantTurnos;
 	private int cantCarreras;
 	private int cantHits;

@@ -1,8 +1,16 @@
 package logical;
 
-public class Estadistica {
+import java.io.Serializable;
+
+public class Estadistica implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	public Estadistica(String nombreTemporada, int j, int aB, int r, int h_bateo, int doubleB, int tripleB, int hR,
 			int rBI, int tB, int bB_bateo, int sO_bateo, int sB, float iP, int g, int p, int sV, int cG, int sHO,
 			int qS, int h_pitcheo, int eR, int bB_pitcheo, int sO_pitcheo) {

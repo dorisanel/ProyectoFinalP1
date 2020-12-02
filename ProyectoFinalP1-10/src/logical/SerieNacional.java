@@ -1,16 +1,23 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class SerieNacional {
+public class SerieNacional implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Equipo> misEquipos;
 	private ArrayList<Juego> misJuegos;
 	private ArrayList<Jugador> misJugadores;
 	private static SerieNacional serieNacional = null;
 	
 	
+	
+
 	public SerieNacional() {
 		super();
 		this.misJuegos = new ArrayList <Juego>();
@@ -23,6 +30,14 @@ public class SerieNacional {
 			serieNacional = new SerieNacional();
 		
 		return serieNacional; 
+	}
+	
+	public static SerieNacional getSerieNacional() {
+		return serieNacional;
+	}
+
+	public static void setSerieNacional(SerieNacional serieNacional) {
+		SerieNacional.serieNacional = serieNacional;
 	}
 	
 	public void insertarEquipo(Equipo e) {
