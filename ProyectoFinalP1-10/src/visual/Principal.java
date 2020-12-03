@@ -176,8 +176,10 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Registrar Juego");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegJuego rg1 = new RegJuego();
+				RegJuego rg1 = new RegJuego("Registrar juego", 0, null);
 				rg1.setVisible(true);
+				rg1.setLocationRelativeTo(null);
+				rg1.setResizable(false);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -190,6 +192,8 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoJugador ljug = new ListadoJugador();
 				ljug.setVisible(true);
+				ljug.setLocationRelativeTo(null);
+				ljug.setResizable(false);
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_3);
@@ -199,7 +203,8 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListarEquipos le = new ListarEquipos();
 				le.setVisible(true);
-
+				le.setLocationRelativeTo(null);
+				le.setResizable(false);
 			}
 		});
 		mnNewMenu_1.add(listaEquipoBtn);
@@ -209,6 +214,8 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListaJuegos Lj1 = new ListaJuegos();
 				Lj1.setVisible(true);
+				Lj1.setLocationRelativeTo(null);
+				Lj1.setResizable(false);
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);

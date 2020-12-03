@@ -62,7 +62,8 @@ public class ListaJuegos extends JDialog {
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-					
+
+						
 						startBtn.setEnabled(true);
 						eliminarBtn.setEnabled(true);
 					}

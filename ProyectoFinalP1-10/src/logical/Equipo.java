@@ -1,11 +1,9 @@
 package logical;
 
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 public class Equipo implements Serializable{
 

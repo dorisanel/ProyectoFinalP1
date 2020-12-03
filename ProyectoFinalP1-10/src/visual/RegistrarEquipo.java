@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import logical.Bateador;
 import logical.Equipo;
 import logical.Estadistica;
+import logical.Pitcher;
 import logical.SerieNacional;
 
 import javax.swing.JLabel;
@@ -83,11 +85,35 @@ public class RegistrarEquipo extends JDialog {
 		contentPanel.add(lblNewLabel_1);
 		
 		textNombre = new JTextField();
+		textNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				
+				if(!(Character.isAlphabetic(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == ' '))
+				{
+					e.consume();
+					JOptionPane.showMessageDialog(null, "¡Escriba únicamente letras!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textNombre.setBounds(66, 42, 185, 23);
 		contentPanel.add(textNombre);
 		textNombre.setColumns(10);
 		
 		textManager = new JTextField();
+		textManager.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				
+				if(!(Character.isAlphabetic(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == ' '))
+				{
+					e.consume();
+					JOptionPane.showMessageDialog(null, "¡Escriba únicamente letras!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textManager.setBounds(66, 76, 185, 23);
 		contentPanel.add(textManager);
 		textManager.setColumns(10);
@@ -166,6 +192,7 @@ public class RegistrarEquipo extends JDialog {
 
 				okButton = new JButton(" ");
 				okButton.addActionListener(new ActionListener() {
+					
 					public void actionPerformed(ActionEvent e) {
 						boolean logrado = false;
 						
@@ -177,8 +204,9 @@ public class RegistrarEquipo extends JDialog {
 							String nombre = textNombre.getText();
 							String manager = textManager.getText();
 							String id = textCod.getText();
+							ImageIcon img = new ImageIcon(txLogo.getText());
 
-							aux = new Equipo(id,nombre, manager,new ImageIcon(txLogo.getText()));
+							aux = new Equipo(id,nombre, manager, img);
 
 							if(!(nombre.isEmpty()) && !(manager.isEmpty()) && !(id.isEmpty()))
 								logrado = true;
@@ -241,6 +269,18 @@ public class RegistrarEquipo extends JDialog {
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
+			}
+			
+			if(modo == 1 && equipo != null) {
+
+				textCod.setText(equipo.getID());
+				textNombre.setText(equipo.getNombre());
+				textManager.setText(equipo.getManager());
+				try {
+					imagen.setIcon(equipo.getImage());
+				}catch(Exception ew) {
+
+				}
 			}
 		}
 	}

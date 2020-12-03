@@ -26,6 +26,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
 import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegistrarJugador extends JDialog {
 
@@ -49,26 +51,8 @@ public class RegistrarJugador extends JDialog {
 	 */
 	public RegistrarJugador(String titulo, int modo, Jugador jugador) {
 		setTitle(titulo);
-		setBounds(100, 100, 397, 221);
+		setBounds(100, 100, 497, 234);
 		getContentPane().setLayout(new BorderLayout());
-		
-		/*if(modo == 1) {
-			//cbxEquipo.setSelectedItem(SerieNacional.getInstance().equipoJugador(jugador));
-			//cbxEquipo.setEnabled(false);
-			//textCedula.setText(jugador.getCedula());
-			//textNombre.setText(jugador.getNombre());
-			//spnEdad.setValue(jugador.getEdad());
-			//spnDorsal.setValue(jugador.getNumero());
-			if(jugador instanceof Bateador)
-				System.out.println("jaja");
-				//cbxPosicion.setSelectedItem("Bateador");
-			
-			else if(jugador instanceof Pitcher)
-				System.out.println("jajap");
-				//cbxPosicion.setSelectedItem("Pitcher");
-			
-			//cbxPosicion.setEnabled(false);
-		}*/
 		
 		
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,7 +60,21 @@ public class RegistrarJugador extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			textCedula = new JTextField();
-			textCedula.setBounds(66, 16, 305, 23);
+			textCedula.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					
+					if(!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE))
+					{
+						e.consume();
+						JOptionPane.showMessageDialog(null, "¡Escriba únicamente números!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+			});
+			
+			textCedula.setBounds(66, 16, 391, 23);
 			contentPanel.add(textCedula);
 			textCedula.setColumns(10);
 		}
@@ -87,7 +85,20 @@ public class RegistrarJugador extends JDialog {
 		}
 		{
 			textNombre = new JTextField();
-			textNombre.setBounds(66, 50, 305, 23);
+			textNombre.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					
+					if(!(Character.isAlphabetic(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == ' '))
+					{
+						e.consume();
+						JOptionPane.showMessageDialog(null, "¡Escriba únicamente letras!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+			});
+			textNombre.setBounds(66, 50, 391, 23);
 			contentPanel.add(textNombre);
 			textNombre.setColumns(10);
 		}
@@ -107,16 +118,16 @@ public class RegistrarJugador extends JDialog {
 		contentPanel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Dorsal:");
-		lblNewLabel_3.setBounds(251, 88, 46, 14);
+		lblNewLabel_3.setBounds(325, 88, 46, 14);
 		contentPanel.add(lblNewLabel_3);
 		
 		spnDorsal = new JSpinner();
 		spnDorsal.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		spnDorsal.setBounds(307, 84, 64, 23);
+		spnDorsal.setBounds(393, 84, 64, 23);
 		contentPanel.add(spnDorsal);
 		
 		cbxEquipo = new JComboBox<String>();
-		cbxEquipo.setBounds(66, 118, 113, 23);
+		cbxEquipo.setBounds(66, 118, 178, 23);
 		contentPanel.add(cbxEquipo);
 		
 		for(Equipo equipo : SerieNacional.getInstance().getMisEquipos()) {
@@ -139,12 +150,33 @@ public class RegistrarJugador extends JDialog {
 			
 		
 		JLabel lblNewLabel_5 = new JLabel("Posici\u00F3n:");
-		lblNewLabel_5.setBounds(203, 122, 59, 14);
+		lblNewLabel_5.setBounds(261, 122, 59, 14);
 		contentPanel.add(lblNewLabel_5);
+		
+		
 		
 		cbxPosicion = new JComboBox();
 		cbxPosicion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Bateador", "Pitcher"}));
-		cbxPosicion.setBounds(258, 118, 113, 23);
+		cbxPosicion.setBounds(317, 118, 140, 23);
+		
+		
+		if(modo == 1 && jugador != null) {
+			
+			cbxEquipo.setSelectedItem(SerieNacional.getInstance().equipoJugador(jugador));
+			cbxEquipo.setEnabled(false);
+			textCedula.setText(jugador.getCedula());
+			textNombre.setText(jugador.getNombre());
+			spnEdad.setValue(jugador.getEdad());
+			spnDorsal.setValue(jugador.getNumero());
+			if(jugador instanceof Bateador)
+				cbxPosicion.setSelectedIndex(1);
+
+			else if(jugador instanceof Pitcher)
+				cbxPosicion.setSelectedIndex(2);
+
+			cbxPosicion.setEnabled(false);
+		}
+		
 		contentPanel.add(cbxPosicion);
 		{
 			JPanel buttonPane = new JPanel();

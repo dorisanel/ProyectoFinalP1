@@ -22,12 +22,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class ListarEquipos extends JDialog {
 	private DefaultTableModel modelo;
 	private Object[] filas;
 	private JTable table;
 	private JButton eliminarBtn;
+	private Equipo aux = null;
+	private JButton btnModificar;
 
 	/**
 	 * Launch the application.
@@ -65,6 +68,25 @@ public class ListarEquipos extends JDialog {
 						llenarTabla();
 					}
 				});
+				{
+					btnModificar = new JButton("Modificar");
+					btnModificar.setEnabled(false);
+					btnModificar.setBackground(SystemColor.controlHighlight);
+					btnModificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if(aux != null) {
+								
+								RegistrarEquipo eq = new RegistrarEquipo("Modificar Equipo", 1, aux);
+								eq.setVisible(true);
+								eq.setLocationRelativeTo(null);
+								eq.setResizable(false);
+								btnModificar.setEnabled(false);
+								eliminarBtn.setEnabled(false);
+							}
+						}
+					});
+					buttonPane.add(btnModificar);
+				}
 				eliminarBtn.setActionCommand("OK");
 				buttonPane.add(eliminarBtn);
 				getRootPane().setDefaultButton(eliminarBtn);
@@ -92,7 +114,12 @@ public class ListarEquipos extends JDialog {
 					table.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							if(table.isColumnSelected(0) == true) {
+							
+							int seleccion = table.getSelectedRow();
+
+							if(seleccion != -1) {
+								aux = SerieNacional.getInstance().buscarEquipo((String)modelo.getValueAt(seleccion, 0));
+								btnModificar.setEnabled(true);
 								eliminarBtn.setEnabled(true);
 							}
 						}

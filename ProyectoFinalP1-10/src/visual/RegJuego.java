@@ -53,9 +53,9 @@ public class RegJuego extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegJuego() {
+	public RegJuego(String titulo, int modo, Juego juego) {
 
-		setTitle("Registrar juego");
+		setTitle(titulo);
 		setBounds(100, 100, 720, 487);
 		getContentPane().setLayout(new BorderLayout());
 		estadioCbx.setBackground(SystemColor.text);
@@ -122,7 +122,7 @@ public class RegJuego extends JDialog {
 		estadioCbx.add(cbEstadio);
 
 		spFecha = new JSpinner();
-		spFecha.setModel(new SpinnerDateModel(new Date(1606449600000L), new Date(1606449600000L), null, Calendar.DAY_OF_YEAR));
+		spFecha.setModel(new SpinnerDateModel(new Date(1607400000000L), new Date(1607400000000L), null, Calendar.DAY_OF_YEAR));
 		spFecha.setBounds(449, 103, 235, 26);
 		estadioCbx.add(spFecha);
 
@@ -181,7 +181,7 @@ public class RegJuego extends JDialog {
 						cbEstadio.setSelectedIndex(0);
 						spFecha.setValue(new Date(Calendar.DAY_OF_YEAR));
 						dispose();
-						RegJuego r1 = new RegJuego();
+						RegJuego r1 = new RegJuego("Registrar juego", 0, null);
 						r1.setVisible(true);
 					}});
 				regBtn.setActionCommand("OK");

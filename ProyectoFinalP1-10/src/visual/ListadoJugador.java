@@ -152,9 +152,9 @@ public class ListadoJugador extends JDialog{
 				regLesionBtn.setEnabled(false);
 				regLesionBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int indx = table.getSelectedRow();
-						Equipo equipo = buscarEquipo(comboBox.getSelectedItem().toString());
-						RegLesion RegLesion = new RegLesion(equipo.getMisJugadores().get(indx));
+						
+						RegLesion RegLesion = new RegLesion(aux);
+						
 						RegLesion.setVisible(true);
 						regLesionBtn.setEnabled(false);
 						modificarBtn.setEnabled(false);
@@ -169,9 +169,8 @@ public class ListadoJugador extends JDialog{
 				lesionesBtn.setEnabled(false);
 				lesionesBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int indx = table.getSelectedRow();
-						Equipo equipo = buscarEquipo(comboBox.getSelectedItem().toString());
-						Jugador jug = equipo.getMisJugadores().get(indx);
+						
+						Jugador jug = aux;
 						Lesion l1 = new Lesion(jug);
 						l1.setVisible(true);
 						lesionesBtn.setEnabled(false);
