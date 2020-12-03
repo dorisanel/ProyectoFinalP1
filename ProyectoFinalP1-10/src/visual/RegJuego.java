@@ -160,7 +160,8 @@ public class RegJuego extends JDialog {
 							misEquipos.add(buscarEquipo(local));
 							misEquipos.add(buscarEquipo(visitante));
 							if(local != visitante) {
-								Juego jug1 = new Juego(fecha, misEquipos, visitante, local, estadio, 0, 0, true);
+								Juego jug1 = new Juego("J00"+SerieNacional.getInstance().getCodJuego(),fecha, misEquipos, visitante, local, estadio, 0, 0, true);
+								SerieNacional.getInstance().setCodJuego(SerieNacional.getInstance().getCodJuego()+1);
 								SerieNacional.getInstance().getMisJuegos().add(jug1);
 								
 								JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);

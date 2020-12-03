@@ -294,7 +294,7 @@ public class Principal extends JFrame {
 		String date;
 		for(Juego juego : SerieNacional.getInstance().getMisJuegos()) {
 			date = simpleDateFormat.format(juego.getFecha());
-			if(juego.isEstado()) {
+			if(!juego.isTerminado()) {
 				fila[0] = juego.getLocal();
 				fila[1] = juego.getVisitante(); 
 				fila[2] = date;

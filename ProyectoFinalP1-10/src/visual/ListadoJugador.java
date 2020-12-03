@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Component;
 import javax.swing.SwingConstants;
@@ -201,14 +203,20 @@ public class ListadoJugador extends JDialog{
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int selected = 0;
-						int selEquipo;
-						selected = table.getSelectedRow();
-						selEquipo = comboBox.getSelectedIndex();
-						SerieNacional.getInstance().getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
-						eliminarBtn.setVisible(false);
-						llenarTabla();
-						modelo.setRowCount(0);
+						
+						int e1 = JOptionPane.showConfirmDialog(null, "Los datos de este jugador se eliminaran por completo, no podrá recuperar esta información", "Eliminando Jugador", JOptionPane.WARNING_MESSAGE);
+						
+						if(e1 == 0) {
+							int selected = 0;
+							int selEquipo;
+							selected = table.getSelectedRow();
+							selEquipo = comboBox.getSelectedIndex();
+							SerieNacional.getInstance().getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
+							eliminarBtn.setVisible(false);
+							llenarTabla();
+							modelo.setRowCount(0);
+						}
+						
 					}
 				});
 				eliminarBtn.setActionCommand("OK");
@@ -273,9 +281,9 @@ public class ListadoJugador extends JDialog{
 	public String detPosicion(Jugador juga) {
 		String salida;
 		if(juga instanceof Pitcher) {
-			salida = "Lanzador";
+			salida = "Pitcher";
 		}else {
-			salida = "pitcher";
+			salida = "Bateador";
 		}
 		return salida;
 	}

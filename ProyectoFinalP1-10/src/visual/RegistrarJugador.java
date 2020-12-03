@@ -202,6 +202,8 @@ public class RegistrarJugador extends JDialog {
 						int edad = new Integer(spnEdad.getValue().toString());
 						int dorsal = new Integer(spnDorsal.getValue().toString());
 						Equipo equipoSelected = SerieNacional.getInstance().buscarEquipo(equipo);
+						Jugador ver = SerieNacional.getInstance().buscarJugador(cedula);
+						Jugador verDorsal = buscarDorsal(dorsal, equipoSelected);
 						
 						if(modo == 0) {
 							Jugador aux = null;
@@ -220,6 +222,16 @@ public class RegistrarJugador extends JDialog {
 									logrado = true;
 								}
 								
+								if(ver != null) {
+									logrado = false;
+									JOptionPane.showMessageDialog(null, "¡Ya existe un jugador con esta cédula!", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+								
+								if(verDorsal != null) {
+									logrado = false;
+									JOptionPane.showMessageDialog(null, "¡Ya existe un jugador con este dorsal!", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+								
 								
 							}
 							
@@ -230,7 +242,7 @@ public class RegistrarJugador extends JDialog {
 								clean();
 							}
 							
-							else
+							else if(!logrado && ver == null && verDorsal == null)
 								JOptionPane.showMessageDialog(null, "Complete todas las casillas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
 							
 						}
@@ -239,12 +251,22 @@ public class RegistrarJugador extends JDialog {
 						else {
 
 							
-							if(!(nombre.isEmpty()) || !(cedula.isEmpty())) {
+							if(!(nombre.isEmpty()) || !(cedula.isEmpty()) && ver == null) {
 								jugador.setCedula(cedula);
 								jugador.setNombre(nombre);
 								jugador.setEdad(edad);
 								jugador.setNumero(dorsal);
 								logrado = true;
+							}
+							
+							if(ver != null) {
+								logrado = false;
+								JOptionPane.showMessageDialog(null, "¡Ya existe un jugador con esta cédula!", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							if(verDorsal != null) {
+								logrado = false;
+								JOptionPane.showMessageDialog(null, "¡Ya existe un jugador con este dorsal!", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 
 							if(logrado) {
@@ -252,7 +274,7 @@ public class RegistrarJugador extends JDialog {
 								dispose();
 							}
 							
-							else
+							else if(!logrado && ver == null && verDorsal == null)
 								JOptionPane.showMessageDialog(null, "Complete todas las casillas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
 							
 						}
@@ -284,6 +306,24 @@ public class RegistrarJugador extends JDialog {
 	spnDorsal.setValue(1);
 	cbxEquipo.setSelectedIndex(-1);
 	cbxPosicion.setSelectedIndex(-1);
+	}
+	
+	private Jugador buscarDorsal(int numero, Equipo equipo) {
+			Jugador aux = null;
+			
+			boolean encontrado = false;
+			int i = 0;
+			
+			while(!encontrado && i<equipo.getMisJugadores().size()) {
+				if(equipo.getMisJugadores().get(i).getNumero() == numero) {
+					aux = equipo.getMisJugadores().get(i);
+					encontrado = true;
+				}	
+				
+				i++;
+			}
+			return aux;
+		
 	}
 	
 }

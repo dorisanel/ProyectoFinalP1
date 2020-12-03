@@ -10,6 +10,7 @@ public class Juego implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String codigo;
 	private Date fecha;
 	private ArrayList<Equipo> misEquipos;
 	private String visitante;           
@@ -21,9 +22,10 @@ public class Juego implements Serializable{
 	private int cantCarrerasL=0;
 	
 	
-	public Juego(Date fecha, ArrayList<Equipo> misEquipos, String visitante, String local, String estadio,
+	public Juego(String codigo, Date fecha, ArrayList<Equipo> misEquipos, String visitante, String local, String estadio,
 			int cantCarrerasV, int cantCarrerasL,boolean estado) {
 		super();
+		this.codigo = codigo;
 		this.fecha = fecha;
 		this.misEquipos = misEquipos;
 		this.visitante = visitante;
@@ -123,18 +125,30 @@ public class Juego implements Serializable{
 	public void setTerminado(boolean terminado) {
 		this.terminado = terminado;
 	}
+
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+
+	public void setGanadorPerdedor() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	// en proceso
 	/*public void setGanadorPerdedor() {
 		
-		String aux;
-		
 		if(cantCarrerasL>cantCarrerasV)
-			aux=local;
 		
 		else if(cantCarrerasV>cantCarrerasL)
 			aux=visitante;
 		
-		}*/
+	}*/
 
 }

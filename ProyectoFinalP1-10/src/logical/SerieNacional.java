@@ -14,7 +14,7 @@ public class SerieNacional implements Serializable {
 	private ArrayList<Juego> misJuegos;
 	private ArrayList<Jugador> misJugadores;
 	private static SerieNacional serieNacional = null;
-	
+	private int codJuego = 0;
 	
 	
 
@@ -195,6 +195,31 @@ public class SerieNacional implements Serializable {
 		while(!encontrado && i<misJugadores.size()) {
 			if(misJugadores.get(i).getCedula().equalsIgnoreCase(cedula)) {
 				aux = misJugadores.get(i);
+				encontrado = true;
+			}	
+			
+			i++;
+		}
+		return aux;
+	}
+
+	public int getCodJuego() {
+		return codJuego;
+	}
+
+	public void setCodJuego(int codJuego) {
+		this.codJuego = codJuego;
+	}
+
+	public Juego buscarJuego(String codigo) {
+		Juego aux = null;
+		
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(!encontrado && i<misJuegos.size()) {
+			if(misJuegos.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				aux = misJuegos.get(i);
 				encontrado = true;
 			}	
 			

@@ -152,16 +152,18 @@ public class EstadisticaJugadores extends JDialog {
 					fila[15] = ((Bateador) jugador).OBP();
 					fila [16] = ((Bateador) jugador).SLG();
 					fila[17] = ((Bateador) jugador).OPS();
+					
+					modelo.addRow(fila);
 				}
 
 				
-
+				
 			}
 		}
 
 		else if(tipo == "Pitcher") {
 
-			for(Jugador jugador : SerieNacional.getInstance().mvpDiezPitcher()) {
+			for(Jugador jugador : SerieNacional.getInstance().getMisJugadores()) {
 
 				if(jugador instanceof Pitcher) {
 					
@@ -188,15 +190,19 @@ public class EstadisticaJugadores extends JDialog {
 					fila[17] = ((Pitcher) jugador).getBoletos();
 					fila[18] = ((Pitcher) jugador).getCantPonches();
 					fila[19] = ((Pitcher) jugador).WHIP();
-					fila[20] = jugador.PRO();		
+					fila[20] = jugador.PRO();	
+					
+					modelo.addRow(fila);
 					
 				}
+				
+				
 				
 			}
 
 		}
 
-		modelo.addRow(fila);
+		
 
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +34,9 @@ public class ListaJuegos extends JDialog {
 	private JButton startBtn;
 	private JButton eliminarBtn;
 	private JButton cancelBtn;
+	private Equipo local = null;
+	private Equipo visit = null;
+	private Juego aux = null;
 
 	/**
 	 * Launch the application.
@@ -62,14 +66,25 @@ public class ListaJuegos extends JDialog {
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-
 						
-						startBtn.setEnabled(true);
-						eliminarBtn.setEnabled(true);
+						int seleccion = table.getSelectedRow();
+
+						if(seleccion != -1) {
+							local = SerieNacional.getInstance().buscarEquipo((String)modelo.getValueAt(seleccion, 1));
+							visit = SerieNacional.getInstance().buscarEquipo((String)modelo.getValueAt(seleccion, 2));
+							aux = SerieNacional.getInstance().buscarJuego((String)modelo.getValueAt(seleccion, 0));
+							if(!aux.isTerminado())
+								startBtn.setEnabled(true);
+							
+							eliminarBtn.setEnabled(true);
+						}
+						
+						
+						
 					}
 				});
 				modelo = new DefaultTableModel();
-				String[] header1 = {"Casa", "Visitante", "Estadio","Fecha","Estado"};
+				String[] header1 = {"Código","Casa", "Visitante", "Estadio","Fecha","Estado"};
 				modelo.setColumnIdentifiers(header1);
 				table.setModel(modelo);
 				
@@ -85,25 +100,35 @@ public class ListaJuegos extends JDialog {
 				 startBtn.addActionListener(new ActionListener() {
 				 	public void actionPerformed(ActionEvent e) {
 				 		startBtn.setEnabled(false);
+				 		//try {
+				 			SimulacionJuego j = new SimulacionJuego(aux, local, visit);
+					 		j.setVisible(true);
+				 		//}catch(Exception e1) {
+				 			//JOptionPane.showMessageDialog(null, "¡Ocurrió un error!", "Error", JOptionPane.ERROR_MESSAGE);
+				 		//}
+				 		
 				 	}
 				 });
-				startBtn.setEnabled(false);
-				buttonPane.add(startBtn);
+				 startBtn.setEnabled(false);
+				 buttonPane.add(startBtn);
 			}
 			{
-				 eliminarBtn = new JButton("Eliminar");
-				 eliminarBtn.addActionListener(new ActionListener() {
-				 	public void actionPerformed(ActionEvent e) {
-				 		int rowIndex = table.getSelectedRow();
-						
-						SerieNacional.getInstance().getMisJuegos().remove(rowIndex);
-				 		modelo.setRowCount(0);
-				 		llenarTabla();
-				 		deshabilitarBotones();
-				 	}
+				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int rowIndex = table.getSelectedRow();
+						int e1 = JOptionPane.showConfirmDialog(null, "Los datos de este juego se eliminaran por completo, no podrá recuperar esta información", "Eliminando Jugador", JOptionPane.WARNING_MESSAGE);
 
-				
-				 });
+						if(e1 == 0) {
+							SerieNacional.getInstance().getMisJuegos().remove(rowIndex);
+							modelo.setRowCount(0);
+							llenarTabla();
+							deshabilitarBotones();
+						}
+					}
+
+
+				});
 				eliminarBtn.setEnabled(false);
 				buttonPane.add(eliminarBtn);
 			}
@@ -128,18 +153,19 @@ public class ListaJuegos extends JDialog {
 		String date;
 		for (Juego jue : SerieNacional.getInstance().getMisJuegos()) {
 			date = simpleDateFormat.format(jue.getFecha());
-					filas[0]=jue.getLocal();
-					filas[1]=jue.getVisitante();
-					filas[2]=jue.getEstadio();
-					filas[3]=date;
+					filas[0] = jue.getCodigo();
+					filas[1]=jue.getLocal();
+					filas[2]=jue.getVisitante();
+					filas[3]=jue.getEstadio();
+					filas[4]=date;
 					if(jue.isEstado() == true) {
 						estado = "Pendiente";
 					}else if(jue.isEstado() == false){
 						estado = "Cancelado";
-					}else if(jue.isEstado() == true && jue.isTerminado()==true) {
+					}if(jue.isEstado() == true && jue.isTerminado()==true) {
 						estado = "Terminado";
 					}
-					filas[4]=estado;
+					filas[5]=estado;
 					modelo.addRow(filas);
 			}
 		}

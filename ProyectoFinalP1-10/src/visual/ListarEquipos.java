@@ -59,6 +59,10 @@ public class ListarEquipos extends JDialog {
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						int e1 = JOptionPane.showConfirmDialog(null, "Los datos de este equipo se eliminaran por completo, no podrá recuperar esta información", "Eliminando Jugador", JOptionPane.WARNING_MESSAGE);
+						
+						if(e1 == 0) {
 						int selected = 0;
 						int selEquipo;
 						selected = table.getSelectedRow();
@@ -66,6 +70,7 @@ public class ListarEquipos extends JDialog {
 						modelo.setRowCount(0);
 						eliminarBtn.setEnabled(false);
 						llenarTabla();
+						}
 					}
 				});
 				{
