@@ -227,5 +227,7 @@ public class SerieNacional implements Serializable {
 		}
 		return aux;
 	}
+	
+	
 
 }
