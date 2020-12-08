@@ -219,11 +219,11 @@ public class ListadoJugador extends JDialog{
 						int e1 = JOptionPane.showConfirmDialog(null, "Los datos de este jugador se eliminaran por completo, no podrá recuperar esta información", "Eliminando Jugador", JOptionPane.WARNING_MESSAGE);
 						
 						if(e1 == 0) {
-							int selected = 0;
-							int selEquipo;
-							selected = table.getSelectedRow();
-							selEquipo = comboBox.getSelectedIndex();
-							SerieNacional.getInstance().getMisEquipos().get(selEquipo).getMisJugadores().remove(selected);
+							Equipo eq = SerieNacional.getInstance().buscarEquipo(SerieNacional.getInstance().equipoJugador(aux));
+							
+							eq.getMisJugadores().remove(aux);
+							SerieNacional.getInstance().getMisJugadores().remove(aux);
+							
 							eliminarBtn.setVisible(false);
 							llenarTabla();
 							modelo.setRowCount(0);

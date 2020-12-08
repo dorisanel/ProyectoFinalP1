@@ -254,14 +254,15 @@ public class RegistrarEquipo extends JDialog {
 							String manager = textManager.getText();
 							Equipo ver = SerieNacional.getInstance().buscarEquipo(nombre);
 							
-							if(!(nombre.isEmpty()) && !(manager.isEmpty()) && !(id.isEmpty()) && ver == null) {
+							
+							if(!(nombre.isEmpty()) && !(manager.isEmpty()) && !(id.isEmpty()) && (ver == equipo || ver==null)) {
 								equipo.setManager(manager);
 								equipo.setNombre(nombre);
 								equipo.setID(id);
 								logrado = true;
 							}
 							
-							if(ver != null) {
+							if(ver != equipo && ver != null) {
 								logrado = false;
 								JOptionPane.showMessageDialog(null, "¡Ya existe un equipo con este código!", "Error", JOptionPane.ERROR_MESSAGE);
 							}
@@ -271,7 +272,7 @@ public class RegistrarEquipo extends JDialog {
 								dispose();
 							}
 							
-							else if(!logrado  && ver == null)
+							else if(!logrado  && (ver == equipo || ver==null))
 								JOptionPane.showMessageDialog(null, "Complete todas las casillas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
 							
 						}

@@ -128,6 +128,7 @@ public class RegLesion extends JDialog {
 							logical.Lesion lesion = new logical.Lesion(diagnostico, categoria, fecha, dias);
 							jug.getMisLesiones().add(lesion);
 							JOptionPane.showMessageDialog(null, "Registro satisfactorio", "Info:", JOptionPane.INFORMATION_MESSAGE);
+							jug.setEstado(false);
 							limpiar();
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(null, "No se pudo realizar el registro", "Error:", JOptionPane.INFORMATION_MESSAGE);
