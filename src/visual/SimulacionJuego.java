@@ -68,6 +68,7 @@ public class SimulacionJuego extends JDialog {
 	 * Create the dialog.
 	 */
 	public SimulacionJuego(Juego juego, Equipo local, Equipo visitante) {
+		setTitle("Juego");
 
 		String[] columnPit = {"Pitcher", "J", "A", "JC", "SHO", "JS", "OS", "IL", "H", "C", "CL", "HR",
 				"GP", "BB", "P"};
@@ -82,7 +83,7 @@ public class SimulacionJuego extends JDialog {
 		modeloPitVis = new DefaultTableModel();
 		modelo = new DefaultTableModel();
 
-		setBounds(100, 100, 1104, 1007);
+		setBounds(100, 100, 1101, 881);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -93,12 +94,12 @@ public class SimulacionJuego extends JDialog {
 
 
 			panelLocal.setBorder(new TitledBorder(null, local.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelLocal.setBounds(10, 177, 866, 333);
+			panelLocal.setBounds(10, 177, 866, 316);
 			contentPanel.add(panelLocal);
 			panelLocal.setLayout(null);
 			{
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(10, 21, 846, 150);
+				scrollPane.setBounds(10, 21, 846, 130);
 				panelLocal.add(scrollPane);
 				{
 					tableBatLocal = new JTable();
@@ -109,7 +110,7 @@ public class SimulacionJuego extends JDialog {
 			}
 			{
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(10, 172, 846, 150);
+				scrollPane.setBounds(10, 162, 846, 139);
 				panelLocal.add(scrollPane);
 				{
 					tablePitLocal = new JTable();
@@ -128,7 +129,7 @@ public class SimulacionJuego extends JDialog {
 			modeloPitVis.setColumnIdentifiers(columnPit);
 			modeloBatVis.setColumnIdentifiers(columnBat);
 			panelVisit.setBorder(new TitledBorder(null, visitante.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelVisit.setBounds(10, 521, 866, 333);
+			panelVisit.setBounds(10, 497, 866, 309);
 			contentPanel.add(panelVisit);
 			panelVisit.setLayout(null);
 			{
@@ -143,7 +144,7 @@ public class SimulacionJuego extends JDialog {
 			}
 
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 172, 846, 150);
+			scrollPane.setBounds(10, 172, 846, 126);
 			panelVisit.add(scrollPane);
 
 			tablePitVisit = new JTable();
@@ -339,6 +340,7 @@ public class SimulacionJuego extends JDialog {
 								juego.setTerminado(true);
 								juego.setEstado(true);
 								JOptionPane.showMessageDialog(null, "Local: "+juego.getCantCarrerasL()+" Carreras"+"\nVisitante: "+juego.getCantCarrerasV()+" Carreras", "Juego Terminado", JOptionPane.INFORMATION_MESSAGE);
+								SerieNacional.getInstance().setUltimoJuego(juego);
 								dispose();
 							}
 							

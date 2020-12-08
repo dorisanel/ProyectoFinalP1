@@ -179,8 +179,11 @@ public class Estadistica implements Serializable{
 		SLG = sLG;
 	}
 	public float getERA() {
-		setERA();
-		return ERA;
+		float era = 0;
+		if(ER != 0 && IP != 0) {
+			era = (ER/IP)*9;
+		}
+		return era;
 	}
 	public void setERA() {
 		ERA = (ER/IP)*9;

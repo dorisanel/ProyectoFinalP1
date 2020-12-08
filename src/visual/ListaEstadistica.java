@@ -14,6 +14,8 @@ import logical.Equipo;
 import logical.Estadistica;
 import logical.Juego;
 import logical.SerieNacional;
+import sun.text.resources.FormatData;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -135,7 +137,7 @@ public class ListaEstadistica extends JFrame {
 
 		modelo1 = new DefaultTableModel();
 		tablaPitcheo = new JTable();
-		String[] header1 = {"Equipo","IP","ERA","G","CG","SHO","SV","SVO","IP","H","R","ER","HB","Prom"};
+		String[] header1 = {"Equipo","Ganados","Perdidos","ERA","CG","SHO","SV","SVO","IP","H","R","ER","HB","Prom"};
 		modelo1.setColumnIdentifiers(header1);
 		tablaPitcheo.setModel(modelo1);
 		scrollPane_1.setViewportView(tablaPitcheo);
@@ -178,10 +180,12 @@ public class ListaEstadistica extends JFrame {
 		if(SerieNacional.getInstance().getMisJuegos().isEmpty() == false) {
 			for (Equipo eq : SerieNacional.getInstance().getMisEquipos()) {
 						//eq.actualizarEstadisticasTotales();
+				String era = String.format("%.2f",eq.getEstadisticaTotal().getERA());
+				
 						filas1[0]=eq.getNombre();
 						filas1[1]=eq.getCantJuegosGanados();
 						filas1[2]=eq.getCantJuegosPerdidos();
-						filas1[3]=eq.getEstadisticaTotal().getERA();//revisar metodo
+						filas1[3]=era;
 						filas1[4]=eq.getEstadisticaTotal().getBB_pitcheo();
 						filas1[5]=eq.getEstadisticaTotal().getCG();
 						filas1[6]=eq.getEstadisticaTotal().getSHO();

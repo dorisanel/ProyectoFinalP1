@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.javafx.geom.transform.CanTransformVec3d;
 
 import logical.Equipo;
 import logical.Juego;
@@ -32,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.Window;
@@ -53,6 +55,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.Font;
+import javax.swing.border.LineBorder;
 
 
 public class Principal extends JFrame {
@@ -66,7 +69,8 @@ public class Principal extends JFrame {
 	private BufferedImage bimg;
 	private JLabel lblFrontIcon;
 	private BufferedImage bimg2;
-
+	private JPanel ultimoLbl;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -157,7 +161,7 @@ public class Principal extends JFrame {
 		setMaximumSize(new Dimension(2080, 1960));
 		setTitle("Serie Nacional de Béisbol");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 2396, 1257);
+		setBounds(100, 100, 2665, 1299);
 		dim = getToolkit().getScreenSize();
 		super.setSize(dim.width, dim.height-50);
 		setLocationRelativeTo(null);
@@ -303,12 +307,66 @@ public class Principal extends JFrame {
 			e1.printStackTrace();
 		}
 		ImageIcon img2 = new ImageIcon(bimg2);
+		
+		if(SerieNacional.getSerieNacional().getUltimoJuego() != null) {
+		ultimoLbl = new JPanel();
+		ultimoLbl.setBorder(new LineBorder(new Color(0, 0, 128)));
+		ultimoLbl.setBackground(new Color(255, 255, 255));
+		ultimoLbl.setBounds(831, 68, 605, 257);
+		contentPane.add(ultimoLbl);
+		ultimoLbl.setLayout(null);
+		}
+		
+		JLabel lblNewLabel = new JLabel("Resultados del");
+		lblNewLabel.setBounds(159, 0, 190, 26);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		ultimoLbl.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Vs");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		lblNewLabel_1.setBounds(256, 91, 63, 26);
+		ultimoLbl.add(lblNewLabel_1);
+		
+		JLabel lblLocal = new JLabel("New label");
+		lblLocal.setBounds(51, 35, 160, 147);
+		if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
+			Image imgIcon = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(0).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
+			ImageIcon img4 =(ImageIcon) new ImageIcon(imgIcon); 
+		lblLocal.setIcon(img4);
+		}
+		ultimoLbl.add(lblLocal);
+		
+		JLabel lblVisitante = new JLabel("New label");
+		lblVisitante.setBounds(389, 35, 160, 147);
+		if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
+			Image imgIcon = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(1).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
+			ImageIcon img3 =(ImageIcon) new ImageIcon(imgIcon); 
+			lblVisitante.setIcon(img3);
+		}
+		ultimoLbl.add(lblVisitante);
+		
+		JLabel cantLocalLbl = new JLabel("New label");
+		cantLocalLbl.setBounds(90, 190, 200, 26);
+		cantLocalLbl.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		cantLocalLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasL()).toString());
+		ultimoLbl.add(cantLocalLbl);
+		
+		JLabel cantVisitanteLbl = new JLabel("New label");
+		cantVisitanteLbl.setBounds(450, 190, 200, 26);
+		cantVisitanteLbl.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		cantVisitanteLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasV()).toString());
+		ultimoLbl.add(cantVisitanteLbl);
+		
+		JLabel lblFecha = new JLabel("New label");
+		lblFecha.setText(SerieNacional.getSerieNacional().getUltimoJuego().getFecha().toString());
+		lblFecha.setBounds(299, 5, 92, 26);
+		ultimoLbl.add(lblFecha);
 		lidomLbl.setIcon(img2);
 		
 		contentPane.add(lidomLbl);
 
 		JPanel panel = new JPanel();
-		panel.setFont(new Font("Candara", Font.PLAIN, 25));
+		panel.setFont(new Font("Candara", Font.PLAIN, 15));
 		panel.setOpaque(false);
 		panel.setForeground(Color.WHITE);
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Pr\u00F3ximos juegos:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(220, 220, 220)));

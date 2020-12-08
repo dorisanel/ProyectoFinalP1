@@ -15,6 +15,7 @@ public class SerieNacional implements Serializable {
 	private ArrayList<Jugador> misJugadores;
 	private static SerieNacional serieNacional = null;
 	private int codJuego = 0;
+	private Juego ultimoJuego;
 	
 	
 
@@ -226,6 +227,14 @@ public class SerieNacional implements Serializable {
 			i++;
 		}
 		return aux;
+	}
+
+	public Juego getUltimoJuego() {
+		return ultimoJuego;
+	}
+
+	public void setUltimoJuego(Juego ultimoJuego) {
+		this.ultimoJuego = ultimoJuego;
 	}
 	
 	
