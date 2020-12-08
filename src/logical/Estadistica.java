@@ -74,6 +74,8 @@ public class Estadistica implements Serializable{
 	private  int BB_pitcheo;
 	private  int SO_pitcheo;
 	
+	private int SVO;
+	private int HB;
 	
 	public String getNombreTemporada() {
 		return NombreTemporada;
@@ -266,6 +268,20 @@ public class Estadistica implements Serializable{
 	public void setOPS() {
 		OPS = OBP+SLG;
 	}
+	public void setSVO(int svo) {
+		// TODO Auto-generated method stub
+		SVO = svo;
+	}
+	public int getSVO() {
+		return SVO;
+	}
+	public int getHB() {
+		return HB;
+	}
+	public void setHB(int hB) {
+		HB = hB;
+	}
+	
 	
 	
 	

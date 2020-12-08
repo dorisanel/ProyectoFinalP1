@@ -159,8 +159,6 @@ public class ListaEstadistica extends JFrame {
 		filas = new Object[modelo.getColumnCount()];
 		//filas1 = new Object[15];
 		if(SerieNacional.getInstance().getMisJuegos().isEmpty() == false) {
-
-
 			for (Equipo eq : SerieNacional.getInstance().getMisEquipos()) {
 				try {
 					filas[0]=eq.getNombre();
@@ -175,6 +173,7 @@ public class ListaEstadistica extends JFrame {
 					filas[9]=eq.getEstadisticaTotal().getBB_bateo();
 					filas[10]=eq.getEstadisticaTotal().getSO_bateo();
 					filas[11]=eq.getEstadisticaTotal().getSB();
+					eq.getEstadisticaTotal().getAVG_Bateo();
 					filas[12]=eq.getEstadisticaTotal().getAVG_Bateo();
 					modelo.addRow(filas);
 					tablaBateo.setModel(modelo);
@@ -192,12 +191,9 @@ public class ListaEstadistica extends JFrame {
 	private void llenarTablaEquipoPitcheo() {
 		filas1 = new Object[15];
 		if(!SerieNacional.getInstance().getMisJuegos().isEmpty()) {
-
-
 			for (Equipo eq : SerieNacional.getInstance().getMisEquipos()) {
 				eq.actualizarEstadisticasTotales();
-				String era = String.format("%.2f",eq.getEstadisticaTotal().getERA());
-
+				String era = String.format("%.3f",eq.getEstadisticaTotal().getERA());
 				filas1[0]=eq.getNombre();
 				filas1[1]=eq.getCantJuegosGanados();
 				filas1[2]=eq.getCantJuegosPerdidos();

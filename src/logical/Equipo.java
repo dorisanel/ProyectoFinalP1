@@ -49,11 +49,11 @@ public class Equipo implements Serializable{
 		}
 		return hecho;
 	}
-	public boolean actualizarEstadisticasTotales(){ 
+	public void actualizarEstadisticasTotales(){ 
 		if(estadisticaTotal == null) {
 			estadisticaTotal = new Estadistica("0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		}
-		boolean hecho = false;
+		
 		int j = estadisticaTotal.getJ();
 		int AB= estadisticaTotal.getAB() ;
 		int R= estadisticaTotal.getR() ;
@@ -78,34 +78,40 @@ public class Equipo implements Serializable{
 		int ER= estadisticaTotal.getER() ;
 		int BB_pitcheo= estadisticaTotal.getBB_pitcheo() ;
 		int SO_pitcheo= estadisticaTotal.getSO_pitcheo() ;
-		for (Estadistica estadistica : estadisticasTemporadas) {
-			estadisticaTotal.setJ(estadistica.getJ()+j);
-			estadisticaTotal.setAB(estadistica.getAB()+AB);
-			estadisticaTotal.setR(estadistica.getR()+R);
-			estadisticaTotal.setH_bateo(estadistica.getH_bateo()+H_bateo);
-			estadisticaTotal.setDoubleB(estadistica.getDoubleB()+doubleB);
-			estadisticaTotal.setTripleB(estadistica.getTripleB()+tripleB);
-			estadisticaTotal.setHR(estadistica.getHR()+HR);
-			estadisticaTotal.setRBI(estadistica.getRBI()+RBI);
-			estadisticaTotal.setTB(estadistica.getTB()+TB);
-			estadisticaTotal.setBB_bateo(estadistica.getBB_bateo()+BB_bateo);
-			estadisticaTotal.setSO_bateo(estadistica.getSO_bateo()+SO_bateo);
-			estadisticaTotal.setSB(estadistica.getSB()+SB);
-			estadisticaTotal.setSLG(estadistica.getSLG()+SLG);
-			estadisticaTotal.setIP(estadistica.getIP()+IP);
-			estadisticaTotal.setG(estadistica.getG()+G);
-			estadisticaTotal.setP(estadistica.getP()+P);
-			estadisticaTotal.setSV(estadistica.getSV()+SV);
-			estadisticaTotal.setCG(estadistica.getCG()+CG);
-			estadisticaTotal.setSHO(estadistica.getSHO()+SHO);
-			estadisticaTotal.setQS(estadistica.getQS()+QS);
-			estadisticaTotal.setH_pitcheo(estadistica.getH_pitcheo()+H_pitcheo);
-			estadisticaTotal.setER(estadistica.getER()+ER);
-			estadisticaTotal.setBB_pitcheo(estadistica.getBB_pitcheo()+BB_pitcheo);
-			estadisticaTotal.setSO_pitcheo(estadistica.getSO_pitcheo()+SO_pitcheo);
+		int HB = estadisticaTotal.getHB();
+		int SVO = estadisticaTotal.getSVO();
+		for (Jugador jug : misJugadores) {
+			if(jug instanceof Bateador) {
+			estadisticaTotal.setJ(jug.getCantJuegos()+j);
+			estadisticaTotal.setR(((Bateador) jug).getCantCarreras()+R);
+			estadisticaTotal.setAB(((Bateador) jug).getCantTurnos()+AB);
+			estadisticaTotal.setH_bateo(((Bateador) jug).getCantHits()+H_bateo);
+			estadisticaTotal.setDoubleB(((Bateador) jug).getCantDobles()+doubleB);
+			estadisticaTotal.setTripleB(((Bateador) jug).getCantTriples()+tripleB);
+			estadisticaTotal.setHR(((Bateador) jug).getCantJonrones()+HR);
+			estadisticaTotal.setRBI(((Bateador) jug).getCantCarrerasImpulsadas()+RBI);
+			estadisticaTotal.setBB_bateo(((Bateador) jug).getCantBoletos()+BB_bateo);
+			estadisticaTotal.setSO_bateo(((Bateador) jug).getCantPonches()+SO_bateo);
+			estadisticaTotal.setSB(((Bateador) jug).getBasesRobadas()+SB);
+			
+		}else{
+			if(jug instanceof Pitcher) {
+			estadisticaTotal.setG(jug.getCantJuegos()+G);
+			estadisticaTotal.setP(((Pitcher) jug).getJuegosPerdidos()+P);
+			estadisticaTotal.setCG(((Pitcher) jug).getJuegosCompletos()+CG);
+			estadisticaTotal.setSHO(((Pitcher) jug).getJuegosBlanqueados()+SHO);
+			estadisticaTotal.setSV(((Pitcher) jug).getSalvados()+SV);
+			estadisticaTotal.setSVO(((Pitcher) jug).getOportSalvado()+SVO);
+			estadisticaTotal.setH_pitcheo(((Pitcher) jug).getCantHits()+H_pitcheo);
+			estadisticaTotal.setR(((Pitcher) jug).getCantCarreras()+R);
+			estadisticaTotal.setER(((Pitcher) jug).getCarrerasLimpias()+ER);
+			estadisticaTotal.setHB(((Pitcher) jug).getBateadoresGolpeados()+HB);
+			}
+			
+			
 		}
-		return hecho;
-
+		}
+		
 	}
 	public String getNombre() {
 		return nombre;
