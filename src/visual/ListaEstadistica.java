@@ -198,17 +198,19 @@ public class ListaEstadistica extends JFrame {
 				filas1[1]=eq.getCantJuegosGanados();
 				filas1[2]=eq.getCantJuegosPerdidos();
 				filas1[3]=era;
-				filas1[4]=eq.getEstadisticaTotal().getBB_pitcheo();
-				filas1[5]=eq.getEstadisticaTotal().getCG();
-				filas1[6]=eq.getEstadisticaTotal().getSHO();
-				filas1[7]=eq.getEstadisticaTotal().getSV();
+				//filas1[4]=eq.getEstadisticaTotal().getBB_pitcheo();
+				filas1[4]=eq.getEstadisticaTotal().getCG();
+				filas1[5]=eq.getEstadisticaTotal().getSHO();
+				filas1[6]=eq.getEstadisticaTotal().getSV();
+				
+				filas1[7]=eq.getEstadisticaTotal().getSVO();
 				filas1[8]=eq.getEstadisticaTotal().getIP();
 				filas1[9]=eq.getEstadisticaTotal().getH_pitcheo();
 				filas1[10]=eq.getEstadisticaTotal().getR();
 				filas1[11]=eq.getEstadisticaTotal().getER();
-				filas1[12]=eq.getEstadisticaTotal().getHR();
-				filas1[13]=eq.getEstadisticaTotal().getBB_pitcheo();
-				filas1[14]=eq.getEstadisticaTotal().getAVG_Pitcheo();
+				filas1[12]=eq.getEstadisticaTotal().getHB();
+				//filas1[13]=eq.getEstadisticaTotal().getBB_pitcheo();
+				filas1[13]=eq.getEstadisticaTotal().getAVG_Pitcheo();
 				modelo1.addRow(filas1);
 				tablaPitcheo.setModel(modelo1);
 

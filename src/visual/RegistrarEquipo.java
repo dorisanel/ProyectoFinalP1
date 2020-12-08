@@ -42,6 +42,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 public class RegistrarEquipo extends JDialog {
 
@@ -67,6 +68,7 @@ public class RegistrarEquipo extends JDialog {
 	 * @param titulo 
 	 */
 	public RegistrarEquipo(String titulo, int modo, Equipo equipo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		
 		setTitle(titulo);
 		setBounds(100, 100, 663, 374);

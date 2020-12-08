@@ -94,6 +94,7 @@ public class Equipo implements Serializable{
 			estadisticaTotal.setSO_bateo(((Bateador) jug).getCantPonches()+SO_bateo);
 			estadisticaTotal.setSB(((Bateador) jug).getBasesRobadas()+SB);
 			
+			
 		}else{
 			if(jug instanceof Pitcher) {
 			estadisticaTotal.setG(jug.getCantJuegos()+G);
@@ -106,6 +107,7 @@ public class Equipo implements Serializable{
 			estadisticaTotal.setR(((Pitcher) jug).getCantCarreras()+R);
 			estadisticaTotal.setER(((Pitcher) jug).getCarrerasLimpias()+ER);
 			estadisticaTotal.setHB(((Pitcher) jug).getBateadoresGolpeados()+HB);
+			estadisticaTotal.setIP(((Pitcher) jug).getInningsPitched()+IP);
 			}
 			
 			

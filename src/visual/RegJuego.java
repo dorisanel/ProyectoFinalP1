@@ -34,6 +34,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
+import java.awt.Toolkit;
 
 public class RegJuego extends JDialog {
 
@@ -55,6 +56,7 @@ public class RegJuego extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegJuego(String titulo, int modo, Juego juego) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 
 		setTitle(titulo);
 		setBounds(100, 100, 720, 487);

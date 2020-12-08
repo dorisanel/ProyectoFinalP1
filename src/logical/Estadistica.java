@@ -182,7 +182,8 @@ public class Estadistica implements Serializable{
 	}
 	public float getERA() {
 		float era = 0;
-		if(ER != 0 && IP != 0) {
+		
+		if(IP > 0) {
 			era = (ER/IP)*9;
 		}
 		return era;

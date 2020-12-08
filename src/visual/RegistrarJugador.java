@@ -265,12 +265,12 @@ public class RegistrarJugador extends JDialog {
 								logrado = true;
 							}
 							
-							if(ver != null) {
+							if(ver != null && ver != jugador) {
 								logrado = false;
 								JOptionPane.showMessageDialog(null, "¡Ya existe un jugador con esta cédula!", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 							
-							if(verDorsal != null) {
+							if(verDorsal != null && verDorsal.getNumero()!= jugador.getNumero()) {
 								logrado = false;
 								JOptionPane.showMessageDialog(null, "¡Ya existe un jugador con este dorsal!", "Error", JOptionPane.ERROR_MESSAGE);
 							}
@@ -280,7 +280,7 @@ public class RegistrarJugador extends JDialog {
 								dispose();
 							}
 							
-							else if(!logrado && ver == null && verDorsal == null)
+							else if(!logrado && (ver == null || ver == jugador) && (verDorsal == null || verDorsal.getNumero()==jugador.getNumero()))
 								JOptionPane.showMessageDialog(null, "Complete todas las casillas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
 							
 						}
