@@ -3,12 +3,17 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +31,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
 
 public class SimulacionJuego extends JDialog {
 
@@ -71,7 +82,7 @@ public class SimulacionJuego extends JDialog {
 		modeloPitVis = new DefaultTableModel();
 		modelo = new DefaultTableModel();
 
-		setBounds(100, 100, 1095, 788);
+		setBounds(100, 100, 1104, 1007);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,7 +93,7 @@ public class SimulacionJuego extends JDialog {
 
 
 			panelLocal.setBorder(new TitledBorder(null, local.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelLocal.setBounds(10, 11, 866, 333);
+			panelLocal.setBounds(10, 177, 866, 333);
 			contentPanel.add(panelLocal);
 			panelLocal.setLayout(null);
 			{
@@ -117,7 +128,7 @@ public class SimulacionJuego extends JDialog {
 			modeloPitVis.setColumnIdentifiers(columnPit);
 			modeloBatVis.setColumnIdentifiers(columnBat);
 			panelVisit.setBorder(new TitledBorder(null, visitante.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelVisit.setBounds(10, 368, 866, 333);
+			panelVisit.setBounds(10, 521, 866, 333);
 			contentPanel.add(panelVisit);
 			panelVisit.setLayout(null);
 			{
@@ -142,7 +153,7 @@ public class SimulacionJuego extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Puntuaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel.setBounds(886, 11, 183, 174);
+			panel.setBounds(875, 11, 194, 174);
 			contentPanel.add(panel);
 			panel.setLayout(new BorderLayout(0, 0));
 
@@ -154,6 +165,36 @@ public class SimulacionJuego extends JDialog {
 			table_2.setModel(modelo);
 			table_2.setRowSelectionAllowed(false);
 			scrollPane.setViewportView(table_2);
+		}
+		{
+			JLabel lblCasa = new JLabel("New label");
+			Image imgIcon = local.getImage().getImage().getScaledInstance(177, 133, Image.SCALE_SMOOTH);
+			ImageIcon img2 =(ImageIcon) new ImageIcon(imgIcon); 
+			lblCasa.setIcon(img2);
+			lblCasa.setBounds(114, 26, 177, 133);
+			contentPanel.add(lblCasa);
+		}
+		{
+			JLabel lblVisitante = new JLabel("New label");
+			Image imgIcon = visitante.getImage().getImage().getScaledInstance(177, 133, Image.SCALE_SMOOTH);
+			ImageIcon img2 =(ImageIcon) new ImageIcon(imgIcon); 
+			lblVisitante.setIcon(img2);
+			lblVisitante.setBounds(628, 26, 166, 133);
+			contentPanel.add(lblVisitante);
+		}
+		{
+			JLabel lblNewLabel_2 = new JLabel("Vs");
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 29));
+			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_2.setAlignmentX(Component.CENTER_ALIGNMENT);
+			lblNewLabel_2.setBounds(287, 87, 338, 26);
+			contentPanel.add(lblNewLabel_2);
+		}
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(new Color(255, 255, 255));
+			panel.setBounds(21, 177, 848, -164);
+			contentPanel.add(panel);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -413,5 +454,6 @@ public class SimulacionJuego extends JDialog {
 
 
 	}
+	
 }
 

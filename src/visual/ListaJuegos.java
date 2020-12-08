@@ -147,7 +147,6 @@ public class ListaJuegos extends JDialog {
 	private void llenarTabla() {
 		if(SerieNacional.getInstance().getMisJuegos().isEmpty() == false) {
 		filas = new Object[modelo.getColumnCount()];
-		String estado = null;
 		String pattern = "dd/MM/yyyy HH:mm:ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String date;
@@ -158,11 +157,10 @@ public class ListaJuegos extends JDialog {
 					filas[2]=jue.getVisitante();
 					filas[3]=jue.getEstadio();
 					filas[4]=date;
-					if(jue.isEstado() == true) {
+					String estado = null;
+					if(jue.isTerminado() == false && jue.isEstado() == true) {
 						estado = "Pendiente";
-					}else if(jue.isEstado() == false){
-						estado = "Cancelado";
-					}if(jue.isEstado() == true && jue.isTerminado()==true) {
+					}if(jue.isTerminado()==true && jue.isEstado() == true) {
 						estado = "Terminado";
 					}
 					filas[5]=estado;

@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -30,10 +31,14 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.Component;
 import java.awt.Rectangle;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,6 +46,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import javax.swing.UIManager;
+import java.awt.Font;
 
 
 public class Principal extends JFrame {
@@ -51,6 +63,9 @@ public class Principal extends JFrame {
 	public static DefaultTableModel modelo;
 	public static Object[] fila;
 	private JTable table;
+	private BufferedImage bimg;
+	private JLabel lblFrontIcon;
+	private BufferedImage bimg2;
 
 	/**
 	 * Launch the application.
@@ -101,10 +116,11 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		addWindowListener(new WindowAdapter() {
+			private Window lblFrontIcon;
 			@Override
 			public void windowActivated(WindowEvent e) {
 				try {
-					
+					modelo.setRowCount(0);
 					cargarTabla();
 				}catch(Exception e0) {
 
@@ -127,6 +143,10 @@ public class Principal extends JFrame {
 					e1.printStackTrace();
 				}
 			}
+			@Override
+			public void windowIconified(WindowEvent e) {
+				lblFrontIcon.setBounds(0, 0, 1920, 1024);
+			}
 		});
 
 		/////////////////////////TEST////////////////////////////////////////
@@ -143,10 +163,16 @@ public class Principal extends JFrame {
 		setLocationRelativeTo(null);
 
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setSize(this.getWidth(), 500);
+		menuBar.setForeground(new Color(255, 255, 255));
+		menuBar.setFont(new Font("Cambria", Font.PLAIN, 24));
+		menuBar.setBackground(new Color(25, 25, 112));
+		
 		menuBar.setRequestFocusEnabled(false);
 		setJMenuBar(menuBar);
 
 		JMenu mnNewMenu = new JMenu("Registro");
+		mnNewMenu.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Registrar Equipo");
@@ -184,6 +210,7 @@ public class Principal extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_2);
 
 		JMenu mnNewMenu_1 = new JMenu("Listados");
+		mnNewMenu_1.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu_1);
 
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Lista de Jugadores");
@@ -223,6 +250,7 @@ public class Principal extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem);
 
 		JMenu mnNewMenu_2 = new JMenu("Estad\u00EDsticas");
+		mnNewMenu_2.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu_2);
 
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Top 10 Jugadores");
@@ -263,44 +291,109 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lidomLbl = new JLabel("New label");
+		lidomLbl.setForeground(new Color(255, 255, 255));
+		lidomLbl.setFont(new Font("Candara", Font.BOLD, 23));
+		lidomLbl.setBounds(0, 21, 197, 169);
+		try {
+			 bimg2 = resize("lidom.jpg", lidomLbl.getWidth(),  lidomLbl.getHeight());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ImageIcon img2 = new ImageIcon(bimg2);
+		lidomLbl.setIcon(img2);
+		
+		contentPane.add(lidomLbl);
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Pr\u00F3ximos juegos:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(883, 363, 550, 414);
+		panel.setFont(new Font("Candara", Font.PLAIN, 25));
+		panel.setOpaque(false);
+		panel.setForeground(Color.WHITE);
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Pr\u00F3ximos juegos:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(220, 220, 220)));
+		
+		panel.setBounds(831, 363, 605, 437);
+		
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setForeground(Color.WHITE);
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		modelo = new DefaultTableModel();
 		String[] columns = {"Casa","Visitante", "Fecha/Hora", "Estadio"};
 		modelo.setColumnIdentifiers(columns);
 		table = new JTable();
+		table.setRowSelectionAllowed(false);
+		table.setForeground(new Color(255, 255, 255));
+		table.setSelectionBackground(new Color(0, 0, 128));
+		table.setOpaque(false);
+		table.setBackground(Color.GRAY);
 		table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		table.setModel(modelo);
 		table.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table);
+		
+		lblFrontIcon = new JLabel("New label");
+		lblFrontIcon.setVerticalAlignment(SwingConstants.TOP);
+		try {
+			 bimg = resize("principal.jpg", 1980, 1024);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ImageIcon img = new ImageIcon(bimg);
+		lblFrontIcon.setIcon(img);
+		lblFrontIcon.setBounds(0, 0, 1980, 1024);
+		contentPane.add(lblFrontIcon);
+		lblFrontIcon.setVerticalAlignment(SwingConstants.TOP);
+		modelo.setRowCount(0);
 		cargarTabla();
 	}
 
 	private void cargarTabla() {
-		modelo.setRowCount(0);
 		fila = new Object[modelo.getColumnCount()];
 		String pattern = "dd/MM/yyyy HH:mm:ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String date;
+		ArrayList<Juego> juegosNoTerminados = new ArrayList<Juego>();
 		for(Juego juego : SerieNacional.getInstance().getMisJuegos()) {
+			if(juego.isTerminado() == false && juego.isEstado()) {
+				juegosNoTerminados.add(juego);
+			}
+		}
+		for(Juego juego :juegosNoTerminados) {
 			date = simpleDateFormat.format(juego.getFecha());
-			if(!juego.isTerminado()) {
 				fila[0] = juego.getLocal();
 				fila[1] = juego.getVisitante(); 
 				fila[2] = date;
 				fila[3] = juego.getEstadio();
-			}
+			
 			modelo.addRow(fila);
 
 		}
 
 	}
+	public BufferedImage resize(String inputImagePath, int scaledWidth, int scaledHeight)
+            throws IOException {
+	
+        // reads input image
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(inputFile);
+ 
+        // creates output image
+        BufferedImage outputImage = new BufferedImage(scaledWidth,
+                scaledHeight, inputImage.getType());
+ 
+        // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+ 
+        return outputImage;
+    }
 }
