@@ -149,56 +149,57 @@ public class Juego implements Serializable{
 		int cantJuegosPerdidosV = visitante.getCantJuegosPerdidos();
 		
 		
-		int cantjuegosGanadosL=0;
-		int cantjuegosPerdidosL=0;
-		int cantjuegosLanzadosL=0;
-		int cantjuegosGanadosV=0;
-		int cantjuegosPerdidosV=0;
-		int cantjuegosLanzadosV=0;
+		int pitcherjuegosGanadosL=0;
+		int pitcherjuegosPerdidosL=0;
+		int pitcherjuegosLanzadosL=0;
+		int pitcherjuegosGanadosV=0;
+		int pitcherjuegosPerdidosV=0;
+		int pitcherjuegosLanzadosV=0;
 		
 	 if(cantCarrerasL>cantCarrerasV) {
-		 cantJuegosL++;
-		 cantJuegosGanadosL++;
-		 cantJuegosV++;
-		 cantJuegosPerdidosV++;
+		 local.setCantJuegos(cantJuegosL+1);
+		 local.setCantJuegosGanados(cantJuegosGanadosL+1);
+		 visitante.setCantJuegos(cantJuegosV+1);
+		 visitante.setCantJuegosPerdidos(cantJuegosPerdidosV+1);
 		 
 		 for(Jugador jugador : local.getMisJugadores()) {
 			 
 				if(jugador instanceof Pitcher) {
-					cantjuegosGanadosL += ((Pitcher)jugador).getJuegosGanados();
-					cantjuegosLanzadosL +=((Pitcher)jugador).getJuegosLanzados();
+					((Pitcher)jugador).setJuegosGanados(pitcherjuegosGanadosL+1);
+					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosL+1);
 				} 
 			 }
 		 
 		 for(Jugador jugador : visitante.getMisJugadores()) {
 			 
 				if(jugador instanceof Pitcher) {
-					cantJuegosPerdidosV += ((Pitcher)jugador).getJuegosPerdidos();
-					cantjuegosLanzadosV +=((Pitcher)jugador).getJuegosLanzados();
+					((Pitcher)jugador).setJuegosPerdidos(pitcherjuegosPerdidosV+1);
+					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosV+1);
 				} 
 			 }
 		 
 	 }
 	 
 	 else if(cantCarrerasV>cantCarrerasL) {
-		 cantJuegosV++;
-		 cantJuegosGanadosV++;
-		 cantJuegosL++;
-		 cantJuegosPerdidosL++;
+		 visitante.setCantJuegos(cantJuegosV+1);
+		 visitante.setCantJuegosGanados(cantJuegosGanadosV+1);
+		 local.setCantJuegos(cantJuegosL+1);
+		 local.setCantJuegosPerdidos(cantJuegosPerdidosL+1);
+		
 		 
 		 for(Jugador jugador : visitante.getMisJugadores()) {
 			 
 				if(jugador instanceof Pitcher) {
-					cantjuegosGanadosV += ((Pitcher)jugador).getJuegosGanados();
-					cantjuegosLanzadosV +=((Pitcher)jugador).getJuegosLanzados();
+					((Pitcher)jugador).setJuegosGanados(pitcherjuegosGanadosV+1);
+					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosV+1);
 				} 
 			 }
 		 
 		 for(Jugador jugador : local.getMisJugadores()) {
 			 
 				if(jugador instanceof Pitcher) {
-					cantJuegosPerdidosL += ((Pitcher)jugador).getJuegosPerdidos();
-					cantjuegosLanzadosL +=((Pitcher)jugador).getJuegosLanzados();
+					((Pitcher)jugador).setJuegosPerdidos(pitcherjuegosPerdidosL+1);
+					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosL+1);
 				} 
 			 }  
 	 }
