@@ -10,9 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logical.Bateador;
 import logical.Equipo;
 import logical.Estadistica;
 import logical.Juego;
+import logical.Jugador;
+import logical.Pitcher;
 import logical.SerieNacional;
 import sun.text.resources.FormatData;
 
@@ -35,6 +38,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JLayeredPane;
+import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.Color;
 
 public class ListaEstadistica extends JFrame {
 
@@ -46,11 +52,18 @@ public class ListaEstadistica extends JFrame {
 	private Object[] filas;
 	private DefaultTableModel modelo;
 	private DefaultTableModel modelo1;
+	public static DefaultTableModel modelo2;
 	private String selected;
 	private JTable tablaBateo;
 	private JTable tablaPitcheo;
 	private Object[] filas1;
 	private JScrollPane scrollPane_1;
+	public static Object[] fila;
+	private String[] columnPit = {"Jugador","Equipo", "JG", "JP", "PCL", "J", "A", "JC", "SHO", "JS", "OS", "IL", "H", "C", "CL", "HR",
+			"GP", "BB", "P", "WHIP", "PRO"};
+	
+	private String[] columnBat = {"Jugador","Equipo", "J", "TB", "C", "H","2B","3B","HR","CI","BB","P","BR","AR","PRO","OBP","SLG","OPS"};
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -60,10 +73,11 @@ public class ListaEstadistica extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaEstadistica() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		setTitle("Estadisticas");
-		Estadistica e11 = new Estadistica("11",10,22,33,44,55,6,77,8,56,54,33,55,66,7,89,5,4,543,34,454,5,43,234);
+		/*Estadistica e11 = new Estadistica("11",10,22,33,44,55,6,77,8,56,54,33,55,66,7,89,5,4,543,34,454,5,43,234);
 		//SerieNacional.getInstance().getMisEquipos().get(0).setCantJuegos(1);
-		SerieNacional.getInstance().getMisEquipos().get(0).agregarNuevaEstadistica("13", e11);
+		SerieNacional.getInstance().getMisEquipos().get(0).agregarNuevaEstadistica("13", e11);*/
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -77,6 +91,7 @@ public class ListaEstadistica extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setLocationRelativeTo(null);
 
 		modelo = new DefaultTableModel();
 
@@ -84,22 +99,13 @@ public class ListaEstadistica extends JFrame {
 		modelo.setColumnIdentifiers(head1);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 51, 153));
 		contentPane.add(panel, BorderLayout.NORTH);
-
-		JLabel lblNewLabel = new JLabel("Filtrar por:");
+		
+		lblNewLabel = new JLabel("Estad\u00EDsticas de Equipos");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Sitka Heading", Font.PLAIN, 14));
 		panel.add(lblNewLabel);
-
-		JComboBox comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					modelo.setRowCount(0);
-					llenarTablaEquipo();
-				
-			}
-		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Equipos", "Jugadores"}));
-		comboBox.setSelectedIndex(0);
-		panel.add(comboBox);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
@@ -142,6 +148,8 @@ public class ListaEstadistica extends JFrame {
 		tablaPitcheo.setModel(modelo1);
 		scrollPane_1.setViewportView(tablaPitcheo);
 		llenarTablaEquipoPitcheo();
+		
+		modelo2 = new DefaultTableModel();		
 
 	}
 
@@ -151,56 +159,71 @@ public class ListaEstadistica extends JFrame {
 		filas = new Object[modelo.getColumnCount()];
 		//filas1 = new Object[15];
 		if(SerieNacional.getInstance().getMisJuegos().isEmpty() == false) {
-				for (Equipo eq : SerieNacional.getInstance().getMisEquipos()) {
-					try {
-						filas[0]=eq.getNombre();
-						filas[1]=eq.getCantJuegos();
-						filas[2]=eq.getEstadisticaTotal().getR();
-						filas[3]=eq.getEstadisticaTotal().getAB();
-						filas[4]=eq.getEstadisticaTotal().getH_bateo();
-						filas[5]=eq.getEstadisticaTotal().getDoubleB();
-						filas[6]=eq.getEstadisticaTotal().getTripleB();
-						filas[7]=eq.getEstadisticaTotal().getHR();
-						filas[8]=eq.getEstadisticaTotal().getRBI();
-						filas[9]=eq.getEstadisticaTotal().getBB_bateo();
-						filas[10]=eq.getEstadisticaTotal().getSO_bateo();
-						filas[11]=eq.getEstadisticaTotal().getSB();
-						filas[12]=eq.getEstadisticaTotal().getAVG_Bateo();
-						modelo.addRow(filas);
-						tablaBateo.setModel(modelo);
-					}catch(NullPointerException e1) {
-						eq.actualizarEstadisticasTotales();
-					}
+
+
+			for (Equipo eq : SerieNacional.getInstance().getMisEquipos()) {
+				try {
+					filas[0]=eq.getNombre();
+					filas[1]=eq.getCantJuegos();
+					filas[2]=eq.getEstadisticaTotal().getR();
+					filas[3]=eq.getEstadisticaTotal().getAB();
+					filas[4]=eq.getEstadisticaTotal().getH_bateo();
+					filas[5]=eq.getEstadisticaTotal().getDoubleB();
+					filas[6]=eq.getEstadisticaTotal().getTripleB();
+					filas[7]=eq.getEstadisticaTotal().getHR();
+					filas[8]=eq.getEstadisticaTotal().getRBI();
+					filas[9]=eq.getEstadisticaTotal().getBB_bateo();
+					filas[10]=eq.getEstadisticaTotal().getSO_bateo();
+					filas[11]=eq.getEstadisticaTotal().getSB();
+					filas[12]=eq.getEstadisticaTotal().getAVG_Bateo();
+					modelo.addRow(filas);
+					tablaBateo.setModel(modelo);
+				}catch(NullPointerException e1) {
+					eq.actualizarEstadisticasTotales();
 				}
-			
+			}
+
+
 		}
+
+
 	}
+
 	private void llenarTablaEquipoPitcheo() {
 		filas1 = new Object[15];
-		if(SerieNacional.getInstance().getMisJuegos().isEmpty() == false) {
+		if(!SerieNacional.getInstance().getMisJuegos().isEmpty()) {
+
+
 			for (Equipo eq : SerieNacional.getInstance().getMisEquipos()) {
-						//eq.actualizarEstadisticasTotales();
+				eq.actualizarEstadisticasTotales();
 				String era = String.format("%.2f",eq.getEstadisticaTotal().getERA());
-				
-						filas1[0]=eq.getNombre();
-						filas1[1]=eq.getCantJuegosGanados();
-						filas1[2]=eq.getCantJuegosPerdidos();
-						filas1[3]=era;
-						filas1[4]=eq.getEstadisticaTotal().getBB_pitcheo();
-						filas1[5]=eq.getEstadisticaTotal().getCG();
-						filas1[6]=eq.getEstadisticaTotal().getSHO();
-						filas1[7]=eq.getEstadisticaTotal().getSV();
-						filas1[8]=eq.getEstadisticaTotal().getIP();
-						filas1[9]=eq.getEstadisticaTotal().getH_pitcheo();
-						filas1[10]=eq.getEstadisticaTotal().getR();
-						filas1[11]=eq.getEstadisticaTotal().getER();
-						filas1[12]=eq.getEstadisticaTotal().getHR();
-						filas1[13]=eq.getEstadisticaTotal().getBB_pitcheo();
-						filas1[14]=eq.getEstadisticaTotal().getAVG_Pitcheo();
-						modelo1.addRow(filas1);
-						tablaPitcheo.setModel(modelo1);
+
+				filas1[0]=eq.getNombre();
+				filas1[1]=eq.getCantJuegosGanados();
+				filas1[2]=eq.getCantJuegosPerdidos();
+				filas1[3]=era;
+				filas1[4]=eq.getEstadisticaTotal().getBB_pitcheo();
+				filas1[5]=eq.getEstadisticaTotal().getCG();
+				filas1[6]=eq.getEstadisticaTotal().getSHO();
+				filas1[7]=eq.getEstadisticaTotal().getSV();
+				filas1[8]=eq.getEstadisticaTotal().getIP();
+				filas1[9]=eq.getEstadisticaTotal().getH_pitcheo();
+				filas1[10]=eq.getEstadisticaTotal().getR();
+				filas1[11]=eq.getEstadisticaTotal().getER();
+				filas1[12]=eq.getEstadisticaTotal().getHR();
+				filas1[13]=eq.getEstadisticaTotal().getBB_pitcheo();
+				filas1[14]=eq.getEstadisticaTotal().getAVG_Pitcheo();
+				modelo1.addRow(filas1);
+				tablaPitcheo.setModel(modelo1);
+
 			}
+
+
+
+
 		}
+
+
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	}
+}

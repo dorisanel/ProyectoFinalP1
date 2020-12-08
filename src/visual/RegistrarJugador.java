@@ -28,6 +28,9 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import javax.swing.border.TitledBorder;
 
 public class RegistrarJugador extends JDialog {
 
@@ -50,6 +53,7 @@ public class RegistrarJugador extends JDialog {
 	 * @param n1 
 	 */
 	public RegistrarJugador(String titulo, int modo, Jugador jugador) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		setTitle(titulo);
 		setBounds(100, 100, 497, 234);
 		getContentPane().setLayout(new BorderLayout());
@@ -180,10 +184,12 @@ public class RegistrarJugador extends JDialog {
 		contentPanel.add(cbxPosicion);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton(" ");
+				okButton.setIcon(new ImageIcon("modi.png"));
 				okButton.setBackground(SystemColor.controlHighlight);
 				
 				if(modo == 0)
@@ -287,6 +293,7 @@ public class RegistrarJugador extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon("61848.png"));
 				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

@@ -1,8 +1,11 @@
 package logical;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
+
+
 
 
 public class Juego implements Serializable{
@@ -12,9 +15,8 @@ public class Juego implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private Date fecha;
-	private ArrayList<Equipo> misEquipos;
-	private String visitante;           
-	private String local; 
+	private Equipo local;
+	private Equipo visitante;
 	private String estadio;
 	private boolean estado;
 	private boolean terminado;
@@ -22,14 +24,13 @@ public class Juego implements Serializable{
 	private int cantCarrerasL=0;
 	
 	
-	public Juego(String codigo, Date fecha, ArrayList<Equipo> misEquipos, String visitante, String local, String estadio,
+	public Juego(String codigo, Date fecha, Equipo local, Equipo visitante, String estadio,
 			int cantCarrerasV, int cantCarrerasL,boolean estado) {
 		super();
 		this.codigo = codigo;
 		this.fecha = fecha;
-		this.misEquipos = misEquipos;
-		this.visitante = visitante;
 		this.local = local;
+		this.visitante = visitante;
 		this.estadio = estadio;
 		this.cantCarrerasV = cantCarrerasV;
 		this.cantCarrerasL = cantCarrerasL;
@@ -58,26 +59,7 @@ public class Juego implements Serializable{
 	}
 
 
-	public String getVisitante() {
-		return visitante;
-	}
-
-
-	public void setVisitante(String visitante) {
-		this.visitante = visitante;
-	}
-
-
-	public String getLocal() {
-		return local;
-	}
-
-
-	public void setLocal(String local) {
-		this.local = local;
-	}
-
-
+	
 	public int getCantCarrerasV() {
 		return cantCarrerasV;
 	}
@@ -95,15 +77,6 @@ public class Juego implements Serializable{
 
 	public void setCantCarrerasL(int cantCarrerasL) {
 		this.cantCarrerasL = cantCarrerasL;
-	}
-
-
-	public ArrayList<Equipo> getMisEquipos() {
-		return misEquipos;
-	}
-
-	public void setMisEquipos(ArrayList<Equipo> misEquipos) {
-		this.misEquipos = misEquipos;
 	}
 
 
@@ -137,18 +110,89 @@ public class Juego implements Serializable{
 	}
 
 
+
+	public Equipo getLocal() {
+		return local;
+	}
+
+
+	public void setLocal(Equipo local) {
+		this.local = local;
+	}
+
+
+	public Equipo getVisitante() {
+		return visitante;
+	}
+
+
+	public void setVisitante(Equipo visitante) {
+		this.visitante = visitante;
+	}
+	
 	public void setGanadorPerdedor() {
-		// TODO Auto-generated method stub
+		
+		int cantJuegosL= local.getCantJuegos();
+		int cantJuegosGanadosL= local.getCantJuegosGanados();
+		int cantJuegosPerdidosL = local.getCantJuegosPerdidos();
+		int cantJuegosV= visitante.getCantJuegos();
+		int cantJuegosGanadosV= visitante.getCantJuegosGanados();
+		int cantJuegosPerdidosV = visitante.getCantJuegosPerdidos();
+		
+		
+		int pitcherjuegosGanadosL=0;
+		int pitcherjuegosPerdidosL=0;
+		int pitcherjuegosGanadosV=0;
+		int pitcherjuegosPerdidosV=0;
+		
+		
+	 if(cantCarrerasL>cantCarrerasV) {
+		 local.setCantJuegos(cantJuegosL+1);
+		 local.setCantJuegosGanados(cantJuegosGanadosL+1);
+		 visitante.setCantJuegos(cantJuegosV+1);
+		 visitante.setCantJuegosPerdidos(cantJuegosPerdidosV+1);
+		 
+		 for(Jugador jugador : local.getMisJugadores()) {
+			 
+				if(jugador instanceof Pitcher) {
+					((Pitcher)jugador).setJuegosGanados(pitcherjuegosGanadosL+1);
+				} 
+			 }
+		 
+		 for(Jugador jugador : visitante.getMisJugadores()) {
+			 
+				if(jugador instanceof Pitcher) {
+					((Pitcher)jugador).setJuegosPerdidos(pitcherjuegosPerdidosV+1);
+				} 
+			 }
+		 
+	 }
+	 
+	 else if(cantCarrerasV>cantCarrerasL) {
+		 visitante.setCantJuegos(cantJuegosV+1);
+		 visitante.setCantJuegosGanados(cantJuegosGanadosV+1);
+		 local.setCantJuegos(cantJuegosL+1);
+		 local.setCantJuegosPerdidos(cantJuegosPerdidosL+1);
+		
+		 
+		 for(Jugador jugador : visitante.getMisJugadores()) {
+			 
+				if(jugador instanceof Pitcher) {
+					((Pitcher)jugador).setJuegosGanados(pitcherjuegosGanadosV+1);
+				} 
+			 }
+		 
+		 for(Jugador jugador : local.getMisJugadores()) {
+			 
+				if(jugador instanceof Pitcher) {
+					((Pitcher)jugador).setJuegosPerdidos(pitcherjuegosPerdidosL+1);
+				} 
+			 }  
+	 }
+	 
 		
 	}
 	
-	/*public void setGanadorPerdedor() {
-		
-		if(cantCarrerasL>cantCarrerasV)
-		
-		else if(cantCarrerasV>cantCarrerasL)
-			aux=visitante;
-		
-	}*/
-
 }
+
+

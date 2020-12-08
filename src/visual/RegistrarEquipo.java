@@ -217,6 +217,8 @@ public class RegistrarEquipo extends JDialog {
 								} catch (IOException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
+								} catch(Exception e1) {
+									
 								}
 							}
 							Equipo ver = SerieNacional.getInstance().buscarEquipo(nombre);
@@ -283,11 +285,15 @@ public class RegistrarEquipo extends JDialog {
 					okButton.setText("Modificar");
 					
 				okButton.setActionCommand("OK");
+				okButton.setIcon(new ImageIcon("modi.png"));
+				okButton.setBackground(SystemColor.controlHighlight);
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon("61848.png"));
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -326,17 +332,22 @@ public class RegistrarEquipo extends JDialog {
 	
         // reads input image
         File inputFile = new File(inputImagePath);
-        BufferedImage inputImage = ImageIO.read(inputFile);
- 
-        // creates output image
-        BufferedImage outputImage = new BufferedImage(scaledWidth,
-                scaledHeight, inputImage.getType());
- 
-        // scales the input image to the output image
-        Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
-        g2d.dispose();
- 
+        BufferedImage inputImage = null;
+        BufferedImage outputImage = null;
+        try {
+        	 inputImage = ImageIO.read(inputFile);
+        	// creates output image
+             outputImage = new BufferedImage(scaledWidth,
+                     scaledHeight, inputImage.getType());
+      
+             // scales the input image to the output image
+             Graphics2D g2d = outputImage.createGraphics();
+             g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+             g2d.dispose();
+        } catch(Exception e0) {
+        	
+        }
+      
         return outputImage;
     }
  

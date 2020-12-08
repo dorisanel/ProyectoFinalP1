@@ -47,6 +47,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class ListadoJugador extends JDialog{
 
@@ -70,6 +73,7 @@ public class ListadoJugador extends JDialog{
 	 * Create the dialog.
 	 */
 	public ListadoJugador() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -81,7 +85,7 @@ public class ListadoJugador extends JDialog{
 			}
 		});
 
-		setTitle("Listado de jugadores");
+		setTitle("Listado de Jugadores");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 742, 473);
 		getContentPane().setLayout(new BorderLayout());
@@ -151,6 +155,8 @@ public class ListadoJugador extends JDialog{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				regLesionBtn = new JButton("Registrar lesi\u00F3n");
+				regLesionBtn.setIcon(new ImageIcon("modi.png"));
+				regLesionBtn.setBackground(SystemColor.controlHighlight);
 				regLesionBtn.setEnabled(false);
 				regLesionBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -168,6 +174,8 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				lesionesBtn = new JButton("Ver lesiones");
+				lesionesBtn.setIcon(new ImageIcon("ver.png"));
+				lesionesBtn.setBackground(SystemColor.controlHighlight);
 				lesionesBtn.setEnabled(false);
 				lesionesBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -183,6 +191,8 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				modificarBtn = new JButton("Modificar");
+				modificarBtn.setIcon(new ImageIcon("modi.png"));
+				modificarBtn.setBackground(SystemColor.controlHighlight);
 				modificarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
@@ -200,6 +210,8 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setIcon(new ImageIcon("61848.png"));
+				eliminarBtn.setBackground(SystemColor.controlHighlight);
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -225,6 +237,8 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon("61155.png"));
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

@@ -17,14 +17,17 @@ import logical.SerieNacional;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 
 public class EstadisticaJugadores extends JDialog {
 
@@ -43,6 +46,7 @@ public class EstadisticaJugadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public EstadisticaJugadores() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		
 		setTitle("Estad\u00EDstica de Jugadores");
 		setBounds(100, 100, 982, 540);
@@ -53,6 +57,7 @@ public class EstadisticaJugadores extends JDialog {
 		String[] columnBat = {"Jugador","Equipo", "J", "TB", "C", "H","2B","3B","HR","CI","BB","P","BR","AR","PRO","OBP","SLG","OPS"};
 		
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(UIManager.getColor("Button.background"));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -108,6 +113,7 @@ public class EstadisticaJugadores extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.setIcon(new ImageIcon("61155.png"));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -131,7 +137,7 @@ public class EstadisticaJugadores extends JDialog {
 		if(tipo == "Bateador") {
 
 			for(Jugador jugador : SerieNacional.getInstance().getMisJugadores()) {
-				
+
 				//"Jugador","Equipo", "J", "TB", "C", "H","2B","3B","HR","CI","BB","P","BR","AR","PRO","OBP","SLG","OPS"
 				if(jugador instanceof Bateador) {
 					fila[0] = jugador.getNombre(); 
@@ -152,13 +158,12 @@ public class EstadisticaJugadores extends JDialog {
 					fila[15] = ((Bateador) jugador).OBP();
 					fila [16] = ((Bateador) jugador).SLG();
 					fila[17] = ((Bateador) jugador).OPS();
-					
+
 					modelo.addRow(fila);
 				}
 
-				
-				
 			}
+
 		}
 
 		else if(tipo == "Pitcher") {
@@ -166,10 +171,10 @@ public class EstadisticaJugadores extends JDialog {
 			for(Jugador jugador : SerieNacional.getInstance().getMisJugadores()) {
 
 				if(jugador instanceof Pitcher) {
-					
+
 					//"Jugador","Equipo", "JG", "JP", "PCL", "J", "A", "JC", "SHO", "JS", "OS", "IL", "H", "C", "CL", "HR",
 					//"GP", "BB", "P", "WHIP", "PRO"
-					
+
 					fila[0] = jugador.getNombre(); 
 					fila[1] = SerieNacional.getInstance().equipoJugador(jugador);
 					fila[2] = ((Pitcher) jugador).getJuegosGanados();
@@ -191,18 +196,18 @@ public class EstadisticaJugadores extends JDialog {
 					fila[18] = ((Pitcher) jugador).getCantPonches();
 					fila[19] = ((Pitcher) jugador).WHIP();
 					fila[20] = jugador.PRO();	
-					
+
 					modelo.addRow(fila);
-					
+
 				}
-				
-				
-				
+
+
+
 			}
 
 		}
 
-		
+
 
 	}
 }

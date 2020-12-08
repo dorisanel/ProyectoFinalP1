@@ -56,6 +56,7 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+import java.awt.Toolkit;
 
 
 public class Principal extends JFrame {
@@ -74,51 +75,11 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				
-				FileInputStream serieN;
-				FileOutputStream serieN2;
-				ObjectInputStream serieRead;
-				ObjectOutputStream serieWrite;
-				try {
-					serieN = new FileInputStream("SerieNacional.dat");
-					serieRead = new ObjectInputStream(serieN); 
-					SerieNacional temp = (SerieNacional)serieRead.readObject();
-					SerieNacional.setSerieNacional(temp);
-					serieN.close();
-					serieRead.close();
-				} catch (FileNotFoundException e) {
-					try {
-						serieN2 = new FileOutputStream("SerieNacional.dat");
-						serieWrite = new ObjectOutputStream(serieN2);
-						serieWrite.writeObject(SerieNacional.getInstance());
-					} catch (FileNotFoundException e1) {
-
-					} catch (IOException e1) {
-
-					}
-				} catch (IOException e) {
-
-				} catch (ClassNotFoundException e) {
-					
-				}
-
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	public Principal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		addWindowListener(new WindowAdapter() {
 			private Window lblFrontIcon;
 			@Override
@@ -149,7 +110,12 @@ public class Principal extends JFrame {
 			}
 			@Override
 			public void windowIconified(WindowEvent e) {
-				lblFrontIcon.setBounds(0, 0, 1920, 1024);
+				try {
+					lblFrontIcon.setBounds(0, 0, 1920, 1024);
+				}catch(Exception e0) {
+					
+				}
+				
 			}
 		});
 
@@ -170,7 +136,7 @@ public class Principal extends JFrame {
 		menuBar.setSize(this.getWidth(), 500);
 		menuBar.setForeground(new Color(255, 255, 255));
 		menuBar.setFont(new Font("Cambria", Font.PLAIN, 24));
-		menuBar.setBackground(new Color(25, 25, 112));
+		menuBar.setBackground(new Color(0, 51, 153));
 		
 		menuBar.setRequestFocusEnabled(false);
 		setJMenuBar(menuBar);
@@ -266,7 +232,7 @@ public class Principal extends JFrame {
 			}
 		});
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Estad\u00EDsticas Jugadores");
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Estad\u00EDsticas de Equipos");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -281,6 +247,20 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_6);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Estad\u00EDsticad de Jugadores");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					EstadisticaJugadores dialog = new EstadisticaJugadores();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				}catch(ArithmeticException e1) {
+					JOptionPane.showMessageDialog(null, "No existen estadisticas definidas.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_7);
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -299,9 +279,9 @@ public class Principal extends JFrame {
 		JLabel lidomLbl = new JLabel("New label");
 		lidomLbl.setForeground(new Color(255, 255, 255));
 		lidomLbl.setFont(new Font("Candara", Font.BOLD, 23));
-		lidomLbl.setBounds(0, 21, 197, 169);
+		lidomLbl.setBounds(0, 21, 236, 236);
 		try {
-			 bimg2 = resize("lidom.jpg", lidomLbl.getWidth(),  lidomLbl.getHeight());
+			 bimg2 = resize("muuSawtA_preview_rev_2.png", lidomLbl.getWidth(),  lidomLbl.getHeight());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -318,7 +298,7 @@ public class Principal extends JFrame {
 		//}
 		
 		JLabel lblNewLabel = new JLabel("Resultados del");
-		lblNewLabel.setBounds(146, 10, 220, 26);
+		lblNewLabel.setBounds(148, 10, 220, 26);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
 		ultimoLbl.add(lblNewLabel);
 		
@@ -327,48 +307,67 @@ public class Principal extends JFrame {
 		lblNewLabel_1.setBounds(265, 106, 63, 26);
 		ultimoLbl.add(lblNewLabel_1);
 		
-		JLabel lblLocal = new JLabel("New label");
+		JLabel lblLocal = new JLabel("");
 		lblLocal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLocal.setBounds(35, 47, 160, 147);
-	//	if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
-			Image imgIcon3 = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(0).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
-			ImageIcon img4 =(ImageIcon) new ImageIcon(imgIcon3); 
-		lblLocal.setIcon(img4);
-	//	}
+		if(SerieNacional.getSerieNacional().getUltimoJuego() != null) {
+			try {
+				Image imgIcon3 = SerieNacional.getSerieNacional().getUltimoJuego().getLocal().getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
+				ImageIcon img4 =(ImageIcon) new ImageIcon(imgIcon3); 
+				lblLocal.setIcon(img4);
+			} catch(Exception e) {
+				
+			}
+			
+		}
 		ultimoLbl.add(lblLocal);
 		
-		JLabel lblVisitante = new JLabel("New label");
+		JLabel lblVisitante = new JLabel("");
 		lblVisitante.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVisitante.setBounds(403, 47, 168, 147);
-	//	if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
-			Image imgIcon = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(1).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
-			ImageIcon img3 =(ImageIcon) new ImageIcon(imgIcon); 
-			lblVisitante.setIcon(img3);
-	//	}
+		if(SerieNacional.getSerieNacional().getUltimoJuego() != null) {
+			try {
+				Image imgIcon = SerieNacional.getSerieNacional().getUltimoJuego().getVisitante().getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
+				ImageIcon img3 =(ImageIcon) new ImageIcon(imgIcon); 
+				lblVisitante.setIcon(img3);
+			} catch(Exception e) {
+				
+			}
+			
+		}
 		ultimoLbl.add(lblVisitante);
 		
 		JLabel cantLocalLbl = new JLabel("New label");
 		cantLocalLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		cantLocalLbl.setBounds(0, 200, 195, 46);
 		cantLocalLbl.setFont(new Font("Tahoma", Font.PLAIN, 44));
-		cantLocalLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasL()).toString());
-		ultimoLbl.add(cantLocalLbl);
+		if(SerieNacional.getInstance().getUltimoJuego() != null) {
+			cantLocalLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasL()).toString());
+			ultimoLbl.add(cantLocalLbl);
+		}
+			
 		
 		JLabel cantVisitanteLbl = new JLabel("New label");
 		cantVisitanteLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		cantVisitanteLbl.setBounds(385, 200, 220, 46);
 		cantVisitanteLbl.setFont(new Font("Tahoma", Font.PLAIN, 44));
-		cantVisitanteLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasV()).toString());
-		ultimoLbl.add(cantVisitanteLbl);
+		if(SerieNacional.getInstance().getUltimoJuego() != null) {
+			cantVisitanteLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasV()).toString());
+			ultimoLbl.add(cantVisitanteLbl);
+		}
 		
-		JLabel lblFecha = new JLabel("New label");
+		
+		JLabel lblFecha = new JLabel("\u00DAltimo Juego");
 		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 21));
 		String pattern = "dd/MM/yyyy HH:mm:ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String date;
-		date = simpleDateFormat.format(SerieNacional.getSerieNacional().getUltimoJuego().getFecha());
-		lblFecha.setText(date);
-		lblFecha.setBounds(327, 10, 278, 26);
+		if(SerieNacional.getSerieNacional().getUltimoJuego() != null) {
+			date = simpleDateFormat.format(SerieNacional.getSerieNacional().getUltimoJuego().getFecha());
+			lblFecha.setText(date);
+		}
+		
+		lblFecha.setBounds(317, 10, 278, 26);
 		ultimoLbl.add(lblFecha);
 		lidomLbl.setIcon(img2);
 		
@@ -435,8 +434,8 @@ public class Principal extends JFrame {
 		}
 		for(Juego juego :juegosNoTerminados) {
 			date = simpleDateFormat.format(juego.getFecha());
-				fila[0] = juego.getLocal();
-				fila[1] = juego.getVisitante(); 
+				fila[0] = juego.getLocal().getNombre();
+				fila[1] = juego.getVisitante().getNombre(); 
 				fila[2] = date;
 				fila[3] = juego.getEstadio();
 			

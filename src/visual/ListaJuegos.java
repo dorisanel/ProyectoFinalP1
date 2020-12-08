@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -24,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
+import javax.swing.border.TitledBorder;
 
 public class ListaJuegos extends JDialog {
 
@@ -93,19 +96,27 @@ public class ListaJuegos extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				 startBtn = new JButton("Empezar Juego");
+				 startBtn.setIcon(new ImageIcon(ListaJuegos.class.getResource("/com/sun/javafx/webkit/prism/resources/mediaPlay.png")));
+				 startBtn.setBackground(SystemColor.activeCaption);
 				 startBtn.addActionListener(new ActionListener() {
 				 	public void actionPerformed(ActionEvent e) {
 				 		startBtn.setEnabled(false);
-				 		//try {
-				 			SimulacionJuego j = new SimulacionJuego(aux, local, visit);
-					 		j.setVisible(true);
-				 		//}catch(Exception e1) {
-				 			//JOptionPane.showMessageDialog(null, "¡Ocurrió un error!", "Error", JOptionPane.ERROR_MESSAGE);
-				 		//}
+				 		
+				 			if(aux.getLocal().getMisJugadores().size()>=9 && aux.getVisitante().getMisJugadores().size()>=9) {
+					 			SimulacionJuego j = new SimulacionJuego(aux, local, visit);
+						 		j.setVisible(true);
+					 		}
+					 			
+					 		else
+					 			JOptionPane.showMessageDialog(null, "Estos equipos no tienen los suficientes jugadores para empezar un juego", "ERROR", JOptionPane.ERROR_MESSAGE);
+					 		
+				 		
+				 		
 				 		
 				 	}
 				 });
@@ -114,6 +125,8 @@ public class ListaJuegos extends JDialog {
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setIcon(new ImageIcon("61848.png"));
+				eliminarBtn.setBackground(SystemColor.controlHighlight);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int rowIndex = table.getSelectedRow();
@@ -134,6 +147,8 @@ public class ListaJuegos extends JDialog {
 			}
 			{
 				 cancelBtn = new JButton("Cerrar");
+				 cancelBtn.setIcon(new ImageIcon("61155.png"));
+				 cancelBtn.setBackground(SystemColor.controlHighlight);
 				cancelBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -153,8 +168,8 @@ public class ListaJuegos extends JDialog {
 		for (Juego jue : SerieNacional.getInstance().getMisJuegos()) {
 			date = simpleDateFormat.format(jue.getFecha());
 					filas[0] = jue.getCodigo();
-					filas[1]=jue.getLocal();
-					filas[2]=jue.getVisitante();
+					filas[1]=jue.getLocal().getNombre();
+					filas[2]=jue.getVisitante().getNombre();
 					filas[3]=jue.getEstadio();
 					filas[4]=date;
 					String estado = null;

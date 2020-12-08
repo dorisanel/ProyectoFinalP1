@@ -15,7 +15,7 @@ public class SerieNacional implements Serializable {
 	private ArrayList<Jugador> misJugadores;
 	private static SerieNacional serieNacional = null;
 	private int codJuego = 0;
-	private Juego ultimoJuego;
+	private Juego ultimoJuego = null;
 	
 	
 
