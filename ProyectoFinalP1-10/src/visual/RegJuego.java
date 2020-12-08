@@ -33,6 +33,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.awt.SystemColor;
+import javax.swing.border.TitledBorder;
 
 public class RegJuego extends JDialog {
 
@@ -140,10 +141,13 @@ public class RegJuego extends JDialog {
 		estadioCbx.add(lblNewLabel_6);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				regBtn = new JButton("Registrar");
+				regBtn.setBackground(SystemColor.controlHighlight);
+				regBtn.setIcon(new ImageIcon("modi.png"));
 				regBtn.setEnabled(false);
 				if(SerieNacional.getInstance().getMisEquipos().size() >= 2) {
 					regBtn.setEnabled(true);
@@ -191,6 +195,8 @@ public class RegJuego extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon("61848.png"));
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

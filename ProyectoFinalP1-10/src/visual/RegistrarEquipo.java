@@ -269,15 +269,20 @@ public class RegistrarEquipo extends JDialog {
 				if(modo == 0)
 					okButton.setText("Registrar");
 				
+				
 				else
 					okButton.setText("Modificar");
 					
 				okButton.setActionCommand("OK");
+				okButton.setIcon(new ImageIcon("modi.png"));
+				okButton.setBackground(SystemColor.controlHighlight);
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon("61848.png"));
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.SystemColor;
+import javax.swing.border.TitledBorder;
 
 public class ListaJuegos extends JDialog {
 
@@ -94,10 +96,12 @@ public class ListaJuegos extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				 startBtn = new JButton("Empezar Juego");
+				 startBtn.setIcon(new ImageIcon(ListaJuegos.class.getResource("/com/sun/javafx/webkit/prism/resources/mediaPlay.png")));
 				 startBtn.setBackground(SystemColor.activeCaption);
 				 startBtn.addActionListener(new ActionListener() {
 				 	public void actionPerformed(ActionEvent e) {
@@ -118,7 +122,8 @@ public class ListaJuegos extends JDialog {
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
-				eliminarBtn.setBackground(SystemColor.activeCaption);
+				eliminarBtn.setIcon(new ImageIcon("61848.png"));
+				eliminarBtn.setBackground(SystemColor.controlHighlight);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int rowIndex = table.getSelectedRow();
@@ -139,7 +144,8 @@ public class ListaJuegos extends JDialog {
 			}
 			{
 				 cancelBtn = new JButton("Cerrar");
-				 cancelBtn.setBackground(SystemColor.activeCaption);
+				 cancelBtn.setIcon(new ImageIcon("61155.png"));
+				 cancelBtn.setBackground(SystemColor.controlHighlight);
 				cancelBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
