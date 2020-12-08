@@ -308,58 +308,67 @@ public class Principal extends JFrame {
 		}
 		ImageIcon img2 = new ImageIcon(bimg2);
 		
-		if(SerieNacional.getSerieNacional().getUltimoJuego() != null) {
+	//	if(SerieNacional.getSerieNacional().getUltimoJuego() != null) {
 		ultimoLbl = new JPanel();
 		ultimoLbl.setBorder(new LineBorder(new Color(0, 0, 128)));
 		ultimoLbl.setBackground(new Color(255, 255, 255));
 		ultimoLbl.setBounds(831, 68, 605, 257);
 		contentPane.add(ultimoLbl);
 		ultimoLbl.setLayout(null);
-		}
+		//}
 		
 		JLabel lblNewLabel = new JLabel("Resultados del");
-		lblNewLabel.setBounds(159, 0, 190, 26);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		lblNewLabel.setBounds(146, 10, 220, 26);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
 		ultimoLbl.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Vs");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 31));
-		lblNewLabel_1.setBounds(256, 91, 63, 26);
+		lblNewLabel_1.setFont(new Font("Ink Free", Font.BOLD, 31));
+		lblNewLabel_1.setBounds(265, 106, 63, 26);
 		ultimoLbl.add(lblNewLabel_1);
 		
 		JLabel lblLocal = new JLabel("New label");
-		lblLocal.setBounds(51, 35, 160, 147);
-		if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
-			Image imgIcon = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(0).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
-			ImageIcon img4 =(ImageIcon) new ImageIcon(imgIcon); 
+		lblLocal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLocal.setBounds(35, 47, 160, 147);
+	//	if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
+			Image imgIcon3 = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(0).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
+			ImageIcon img4 =(ImageIcon) new ImageIcon(imgIcon3); 
 		lblLocal.setIcon(img4);
-		}
+	//	}
 		ultimoLbl.add(lblLocal);
 		
 		JLabel lblVisitante = new JLabel("New label");
-		lblVisitante.setBounds(389, 35, 160, 147);
-		if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
+		lblVisitante.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVisitante.setBounds(403, 47, 168, 147);
+	//	if(SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos() != null) {
 			Image imgIcon = SerieNacional.getSerieNacional().getUltimoJuego().getMisEquipos().get(1).getImage().getImage().getScaledInstance(160, 147, Image.SCALE_SMOOTH);
 			ImageIcon img3 =(ImageIcon) new ImageIcon(imgIcon); 
 			lblVisitante.setIcon(img3);
-		}
+	//	}
 		ultimoLbl.add(lblVisitante);
 		
 		JLabel cantLocalLbl = new JLabel("New label");
-		cantLocalLbl.setBounds(90, 190, 200, 26);
-		cantLocalLbl.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		cantLocalLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		cantLocalLbl.setBounds(0, 200, 195, 46);
+		cantLocalLbl.setFont(new Font("Tahoma", Font.PLAIN, 44));
 		cantLocalLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasL()).toString());
 		ultimoLbl.add(cantLocalLbl);
 		
 		JLabel cantVisitanteLbl = new JLabel("New label");
-		cantVisitanteLbl.setBounds(450, 190, 200, 26);
-		cantVisitanteLbl.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		cantVisitanteLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		cantVisitanteLbl.setBounds(385, 200, 220, 46);
+		cantVisitanteLbl.setFont(new Font("Tahoma", Font.PLAIN, 44));
 		cantVisitanteLbl.setText(String.valueOf(SerieNacional.getSerieNacional().getUltimoJuego().getCantCarrerasV()).toString());
 		ultimoLbl.add(cantVisitanteLbl);
 		
 		JLabel lblFecha = new JLabel("New label");
-		lblFecha.setText(SerieNacional.getSerieNacional().getUltimoJuego().getFecha().toString());
-		lblFecha.setBounds(299, 5, 92, 26);
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 21));
+		String pattern = "dd/MM/yyyy HH:mm:ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String date;
+		date = simpleDateFormat.format(SerieNacional.getSerieNacional().getUltimoJuego().getFecha());
+		lblFecha.setText(date);
+		lblFecha.setBounds(327, 10, 278, 26);
 		ultimoLbl.add(lblFecha);
 		lidomLbl.setIcon(img2);
 		
