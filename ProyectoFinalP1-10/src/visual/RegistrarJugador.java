@@ -29,6 +29,8 @@ import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import javax.swing.border.TitledBorder;
 
 public class RegistrarJugador extends JDialog {
 
@@ -51,12 +53,13 @@ public class RegistrarJugador extends JDialog {
 	 * @param n1 
 	 */
 	public RegistrarJugador(String titulo, int modo, Jugador jugador) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		setTitle(titulo);
 		setBounds(100, 100, 497, 234);
 		getContentPane().setLayout(new BorderLayout());
 		
 		
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
@@ -181,6 +184,7 @@ public class RegistrarJugador extends JDialog {
 		contentPanel.add(cbxPosicion);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

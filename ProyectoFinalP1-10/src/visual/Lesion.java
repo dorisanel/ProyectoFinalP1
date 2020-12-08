@@ -94,8 +94,8 @@ public class Lesion extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				eliminarBtn = new JButton("Eliminar");
-				eliminarBtn.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\61848.png"));
-				eliminarBtn.setBackground(SystemColor.activeCaption);
+				eliminarBtn.setIcon(new ImageIcon("61848.png"));
+				eliminarBtn.setBackground(SystemColor.controlHighlight);
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -115,8 +115,8 @@ public class Lesion extends JDialog {
 				});
 				{
 					modificarBtn = new JButton("Modificar");
-					modificarBtn.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\modi.png"));
-					modificarBtn.setBackground(SystemColor.activeCaption);
+					modificarBtn.setIcon(new ImageIcon("modi.png"));
+					modificarBtn.setBackground(SystemColor.controlHighlight);
 					modificarBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							try {
@@ -146,8 +146,8 @@ public class Lesion extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cerrar");
-				cancelButton.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\61155.png"));
-				cancelButton.setBackground(SystemColor.activeCaption);
+				cancelButton.setIcon(new ImageIcon("61155.png"));
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

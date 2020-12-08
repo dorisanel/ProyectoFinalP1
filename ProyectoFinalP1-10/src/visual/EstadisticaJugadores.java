@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Toolkit;
 import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 
 public class EstadisticaJugadores extends JDialog {
 
@@ -113,6 +114,7 @@ public class EstadisticaJugadores extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.setIcon(new ImageIcon("61155.png"));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

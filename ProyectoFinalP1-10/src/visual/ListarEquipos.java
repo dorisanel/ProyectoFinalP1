@@ -23,6 +23,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import javax.swing.border.TitledBorder;
 
 public class ListarEquipos extends JDialog {
 	private DefaultTableModel modelo;
@@ -39,6 +42,7 @@ public class ListarEquipos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarEquipos() {
+	 	setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 	 	setTitle("Listado de equipos");
 	 	addWindowListener(new WindowAdapter() {
 	 		@Override
@@ -52,10 +56,13 @@ public class ListarEquipos extends JDialog {
 		
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				 eliminarBtn = new JButton("Eliminar");
+				 eliminarBtn.setBackground(SystemColor.controlHighlight);
+				 eliminarBtn.setIcon(new ImageIcon("61848.png"));
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -75,6 +82,7 @@ public class ListarEquipos extends JDialog {
 				});
 				{
 					btnModificar = new JButton("Modificar");
+					btnModificar.setIcon(new ImageIcon("modi.png"));
 					btnModificar.setEnabled(false);
 					btnModificar.setBackground(SystemColor.controlHighlight);
 					btnModificar.addActionListener(new ActionListener() {
@@ -98,6 +106,8 @@ public class ListarEquipos extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.setBackground(SystemColor.controlHighlight);
+				cancelButton.setIcon(new ImageIcon("61155.png"));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

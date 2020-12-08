@@ -91,7 +91,7 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\aneli\\git\\ProyectoFinalP1\\muuSawtA_preview_rev_2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		setTitle("Login");
 		setBounds(100, 100, 547, 337);
 		getContentPane().setLayout(new BorderLayout());
@@ -153,7 +153,7 @@ public class Login extends JDialog {
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\unnamed.png"));
+		lblNewLabel_2.setIcon(new ImageIcon("unnamed.png"));
 		panel.add(lblNewLabel_2, BorderLayout.CENTER);
 		
 		lblNewLabel_3 = new JLabel("\u00A1Bienvenido!\r\n");

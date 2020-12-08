@@ -26,6 +26,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import java.awt.SystemColor;
 
 public class SimulacionJuego extends JDialog {
 
@@ -57,6 +60,8 @@ public class SimulacionJuego extends JDialog {
 	 * Create the dialog.
 	 */
 	public SimulacionJuego(Juego juego, Equipo local, Equipo visitante) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
+		setTitle("Simulaci\u00F3n de Juego");
 
 		String[] columnPit = {"Pitcher", "J", "A", "JC", "SHO", "JS", "OS", "IL", "H", "C", "CL", "HR",
 				"GP", "BB", "P"};
@@ -162,6 +167,8 @@ public class SimulacionJuego extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnSimular = new JButton("Simular");
+				btnSimular.setBackground(SystemColor.controlHighlight);
+				btnSimular.setIcon(new ImageIcon(SimulacionJuego.class.getResource("/com/sun/javafx/scene/web/skin/Redo_16x16_JFX.png")));
 				btnSimular.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						btnTerminar.setEnabled(true);
@@ -171,6 +178,7 @@ public class SimulacionJuego extends JDialog {
 				});
 				{
 					btnTerminar = new JButton("Terminar Juego");
+					btnTerminar.setBackground(SystemColor.controlHighlight);
 					btnTerminar.setEnabled(false);
 					btnTerminar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
@@ -312,6 +320,8 @@ public class SimulacionJuego extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setBackground(SystemColor.controlHighlight);
+				cancelButton.setIcon(new ImageIcon("61155.png"));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

@@ -30,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import java.awt.Toolkit;
 import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
 
 public class GraficaLesiones extends JDialog {
 
@@ -143,7 +144,8 @@ public class GraficaLesiones extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton cancelButton = new JButton("Cerrar");
-				cancelButton.setBackground(SystemColor.activeCaption);
+				cancelButton.setIcon(new ImageIcon("61155.png"));
+				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
