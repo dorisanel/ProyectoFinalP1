@@ -26,6 +26,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class Lesion extends JDialog {
 
@@ -46,6 +49,7 @@ public class Lesion extends JDialog {
 	 * Create the dialog.
 	 */
 	public Lesion(Jugador jug) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		setTitle("Lesiones de "+jug.getNombre());
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -90,6 +94,8 @@ public class Lesion extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\61848.png"));
+				eliminarBtn.setBackground(SystemColor.activeCaption);
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -109,6 +115,8 @@ public class Lesion extends JDialog {
 				});
 				{
 					modificarBtn = new JButton("Modificar");
+					modificarBtn.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\modi.png"));
+					modificarBtn.setBackground(SystemColor.activeCaption);
 					modificarBtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							try {
@@ -138,6 +146,8 @@ public class Lesion extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.setIcon(new ImageIcon("C:\\Users\\aneli\\git\\ProyectoFinalP1\\61155.png"));
+				cancelButton.setBackground(SystemColor.activeCaption);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

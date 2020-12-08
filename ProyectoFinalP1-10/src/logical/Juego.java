@@ -166,7 +166,6 @@ public class Juego implements Serializable{
 			 
 				if(jugador instanceof Pitcher) {
 					((Pitcher)jugador).setJuegosGanados(pitcherjuegosGanadosL+1);
-					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosL+1);
 				} 
 			 }
 		 
@@ -174,7 +173,6 @@ public class Juego implements Serializable{
 			 
 				if(jugador instanceof Pitcher) {
 					((Pitcher)jugador).setJuegosPerdidos(pitcherjuegosPerdidosV+1);
-					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosV+1);
 				} 
 			 }
 		 
@@ -191,7 +189,6 @@ public class Juego implements Serializable{
 			 
 				if(jugador instanceof Pitcher) {
 					((Pitcher)jugador).setJuegosGanados(pitcherjuegosGanadosV+1);
-					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosV+1);
 				} 
 			 }
 		 
@@ -199,7 +196,6 @@ public class Juego implements Serializable{
 			 
 				if(jugador instanceof Pitcher) {
 					((Pitcher)jugador).setJuegosPerdidos(pitcherjuegosPerdidosL+1);
-					((Pitcher)jugador).setJuegosLanzados(pitcherjuegosLanzadosL+1);
 				} 
 			 }  
 	 }

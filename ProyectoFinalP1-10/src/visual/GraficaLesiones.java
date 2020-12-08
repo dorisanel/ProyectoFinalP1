@@ -28,6 +28,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.Toolkit;
+import javax.swing.JSeparator;
 
 public class GraficaLesiones extends JDialog {
 
@@ -44,11 +46,13 @@ public class GraficaLesiones extends JDialog {
 	 * Create the dialog.
 	 */
 	public GraficaLesiones() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		setResizable(false);
 		setTitle("Listado de Lesiones");
 		setBounds(100, 100, 853, 582);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.controlHighlight);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -109,13 +113,13 @@ public class GraficaLesiones extends JDialog {
 	        p.setRangeGridlinePaint(Color.gray);
 	        panel.setLayout(null);
 	        ChartPanel chartPanel = new ChartPanel(chart);
-	        chartPanel.setBounds(0, 0, 827, 344);
-	        chartPanel.setBackground(SystemColor.controlHighlight);
+	        chartPanel.setBounds(0, 0, 827, 328);
+	        chartPanel.setBackground(SystemColor.control);
 	        chartPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 	        panel.add(chartPanel);
 	        
 	        JScrollPane scrollPane = new JScrollPane();
-	        scrollPane.setBounds(0, 355, 827, 139);
+	        scrollPane.setBounds(0, 353, 827, 141);
 	        panel.add(scrollPane);
 	        
 	        modelo = new DefaultTableModel();
@@ -126,6 +130,11 @@ public class GraficaLesiones extends JDialog {
 			table.setModel(modelo);
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPane.setViewportView(table);
+			
+			JSeparator separator = new JSeparator();
+			separator.setBackground(new Color(0, 51, 102));
+			separator.setBounds(0, 339, 827, 10);
+			panel.add(separator);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -134,7 +143,7 @@ public class GraficaLesiones extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton cancelButton = new JButton("Cerrar");
-				cancelButton.setBackground(SystemColor.controlHighlight);
+				cancelButton.setBackground(SystemColor.activeCaption);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();

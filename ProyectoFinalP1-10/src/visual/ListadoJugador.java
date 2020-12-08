@@ -47,6 +47,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 public class ListadoJugador extends JDialog{
 
@@ -70,6 +72,7 @@ public class ListadoJugador extends JDialog{
 	 * Create the dialog.
 	 */
 	public ListadoJugador() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -151,6 +154,7 @@ public class ListadoJugador extends JDialog{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				regLesionBtn = new JButton("Registrar lesi\u00F3n");
+				regLesionBtn.setBackground(SystemColor.activeCaption);
 				regLesionBtn.setEnabled(false);
 				regLesionBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -168,6 +172,7 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				lesionesBtn = new JButton("Ver lesiones");
+				lesionesBtn.setBackground(SystemColor.activeCaption);
 				lesionesBtn.setEnabled(false);
 				lesionesBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -183,6 +188,7 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				modificarBtn = new JButton("Modificar");
+				modificarBtn.setBackground(SystemColor.activeCaption);
 				modificarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
@@ -200,6 +206,7 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setBackground(SystemColor.activeCaption);
 				eliminarBtn.setEnabled(false);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -225,6 +232,7 @@ public class ListadoJugador extends JDialog{
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setBackground(SystemColor.activeCaption);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

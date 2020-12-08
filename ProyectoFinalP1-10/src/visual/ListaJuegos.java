@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class ListaJuegos extends JDialog {
 
@@ -97,15 +98,18 @@ public class ListaJuegos extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				 startBtn = new JButton("Empezar Juego");
+				 startBtn.setBackground(SystemColor.activeCaption);
 				 startBtn.addActionListener(new ActionListener() {
 				 	public void actionPerformed(ActionEvent e) {
 				 		startBtn.setEnabled(false);
-				 		//try {
+				 		
+				 		if(local.getMisJugadores().size()>=9 && visit.getMisJugadores().size()>=9) {
 				 			SimulacionJuego j = new SimulacionJuego(aux, local, visit);
 					 		j.setVisible(true);
-				 		//}catch(Exception e1) {
-				 			//JOptionPane.showMessageDialog(null, "¡Ocurrió un error!", "Error", JOptionPane.ERROR_MESSAGE);
-				 		//}
+				 		}
+				 			
+				 		else
+				 			JOptionPane.showConfirmDialog(null, "Los datos de este jugador se eliminaran por completo, no podrá recuperar esta información", "Eliminando Jugador", JOptionPane.WARNING_MESSAGE);
 				 		
 				 	}
 				 });
@@ -114,6 +118,7 @@ public class ListaJuegos extends JDialog {
 			}
 			{
 				eliminarBtn = new JButton("Eliminar");
+				eliminarBtn.setBackground(SystemColor.activeCaption);
 				eliminarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int rowIndex = table.getSelectedRow();
@@ -134,6 +139,7 @@ public class ListaJuegos extends JDialog {
 			}
 			{
 				 cancelBtn = new JButton("Cerrar");
+				 cancelBtn.setBackground(SystemColor.activeCaption);
 				cancelBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

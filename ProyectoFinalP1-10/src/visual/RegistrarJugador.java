@@ -28,6 +28,7 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 public class RegistrarJugador extends JDialog {
 
@@ -184,6 +185,7 @@ public class RegistrarJugador extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton(" ");
+				okButton.setIcon(new ImageIcon("modi.png"));
 				okButton.setBackground(SystemColor.controlHighlight);
 				
 				if(modo == 0)
@@ -287,6 +289,7 @@ public class RegistrarJugador extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon("61848.png"));
 				cancelButton.setBackground(SystemColor.controlHighlight);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

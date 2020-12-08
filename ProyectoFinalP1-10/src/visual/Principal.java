@@ -59,47 +59,6 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				
-				FileInputStream serieN;
-				FileOutputStream serieN2;
-				ObjectInputStream serieRead;
-				ObjectOutputStream serieWrite;
-				try {
-					serieN = new FileInputStream("SerieNacional.dat");
-					serieRead = new ObjectInputStream(serieN); 
-					SerieNacional temp = (SerieNacional)serieRead.readObject();
-					SerieNacional.setSerieNacional(temp);
-					serieN.close();
-					serieRead.close();
-				} catch (FileNotFoundException e) {
-					try {
-						serieN2 = new FileOutputStream("SerieNacional.dat");
-						serieWrite = new ObjectOutputStream(serieN2);
-						serieWrite.writeObject(SerieNacional.getInstance());
-					} catch (FileNotFoundException e1) {
-
-					} catch (IOException e1) {
-
-					}
-				} catch (IOException e) {
-
-				} catch (ClassNotFoundException e) {
-					
-				}
-
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */

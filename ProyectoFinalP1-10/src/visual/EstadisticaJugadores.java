@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import javafx.scene.paint.Color;
 import logical.Bateador;
 import logical.Jugador;
 import logical.Pitcher;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Toolkit;
+import javax.swing.UIManager;
 
 public class EstadisticaJugadores extends JDialog {
 
@@ -43,6 +46,7 @@ public class EstadisticaJugadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public EstadisticaJugadores() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("muuSawtA_preview_rev_2.png"));
 		
 		setTitle("Estad\u00EDstica de Jugadores");
 		setBounds(100, 100, 982, 540);
@@ -53,6 +57,7 @@ public class EstadisticaJugadores extends JDialog {
 		String[] columnBat = {"Jugador","Equipo", "J", "TB", "C", "H","2B","3B","HR","CI","BB","P","BR","AR","PRO","OBP","SLG","OPS"};
 		
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(UIManager.getColor("Button.background"));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
