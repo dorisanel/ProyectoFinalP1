@@ -112,7 +112,6 @@ public class SerieNacional implements Serializable {
 							aux = jugador;
 
 						else if(!mvp.contains(jugador))
-
 							aux = jugador;
 
 					}
@@ -121,11 +120,13 @@ public class SerieNacional implements Serializable {
 						aux = jugador;				
 				}
 
-				if(aux!= null)
-					mvp.add(aux);
-
-				aux = null;
+				
 			}
+			
+			if(aux!= null)
+				mvp.add(aux);
+
+			aux = null;
 
 		}
 
@@ -154,15 +155,17 @@ public class SerieNacional implements Serializable {
 
 					}
 
-					else if(((Pitcher)jugador).PCL()>=((Pitcher)jugador).PCL() && !(mvp.contains(jugador)))
+					else if(((Pitcher)jugador).PCL()>=((Pitcher)aux).PCL() && !(mvp.contains(jugador)))
 						aux = jugador;				
 				}
 
-				if(aux!= null)
-					mvp.add(aux);
-
-				aux = null;
+				
 			}
+			
+			if(aux!= null)
+				mvp.add(aux);
+
+			aux = null;
 
 		}
 

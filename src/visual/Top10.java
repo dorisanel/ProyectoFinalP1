@@ -107,7 +107,7 @@ public class Top10 extends JDialog {
 		fila = new Object[modelo.getColumnCount()];
 
 
-		if(tipo == "Bateadores") {
+		if(tipo.equalsIgnoreCase("Bateadores")) {
 
 			for(Jugador jugador : SerieNacional.getInstance().mvpDiezBateador()) {
 
@@ -116,11 +116,12 @@ public class Top10 extends JDialog {
 				fila[2] = jugador.getEdad();
 				fila[3] = jugador.getCantJuegos();
 				fila[4] = jugador.PRO();
+				modelo.addRow(fila);
 
 			}
 		}
 
-		else if(tipo == "Pitchers") {
+		else if(tipo.equalsIgnoreCase("Pitchers")) {
 
 			for(Jugador jugador : SerieNacional.getInstance().mvpDiezPitcher()) {
 
@@ -130,12 +131,13 @@ public class Top10 extends JDialog {
 				fila[2] = jugador.getEdad();
 				fila[3] = jugador.getCantJuegos();
 				fila[4] = ((Pitcher) jugador).PCL();
+				modelo.addRow(fila);
 
 			}
 
 		}
 
-		modelo.addRow(fila);
+		
 
 	}
 

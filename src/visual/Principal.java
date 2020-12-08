@@ -57,6 +57,7 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 
 public class Principal extends JFrame {
@@ -136,13 +137,15 @@ public class Principal extends JFrame {
 		menuBar.setSize(this.getWidth(), 500);
 		menuBar.setForeground(new Color(255, 255, 255));
 		menuBar.setFont(new Font("Cambria", Font.PLAIN, 24));
-		menuBar.setBackground(new Color(0, 51, 153));
+		menuBar.setBackground(new Color(51, 102, 153));
 		
 		menuBar.setRequestFocusEnabled(false);
 		setJMenuBar(menuBar);
 
 		JMenu mnNewMenu = new JMenu("Registro");
-		mnNewMenu.setForeground(new Color(255, 255, 255));
+		mnNewMenu.setBackground(new Color(0, 51, 102));
+		mnNewMenu.setIcon(new ImageIcon("registro.png"));
+		mnNewMenu.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnNewMenu);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Registrar Equipo");
@@ -180,7 +183,8 @@ public class Principal extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_2);
 
 		JMenu mnNewMenu_1 = new JMenu("Listados");
-		mnNewMenu_1.setForeground(new Color(255, 255, 255));
+		mnNewMenu_1.setIcon(new ImageIcon("102373.png"));
+		mnNewMenu_1.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnNewMenu_1);
 
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Lista de Jugadores");
@@ -220,7 +224,8 @@ public class Principal extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem);
 
 		JMenu mnNewMenu_2 = new JMenu("Estad\u00EDsticas");
-		mnNewMenu_2.setForeground(new Color(255, 255, 255));
+		mnNewMenu_2.setIcon(new ImageIcon("STATISTICS-131994911363180250.png"));
+		mnNewMenu_2.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnNewMenu_2);
 
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Top 10 Jugadores");
